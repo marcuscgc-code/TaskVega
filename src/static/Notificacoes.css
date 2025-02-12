@@ -1,0 +1,44 @@
+/* Estilizando o container principal */
+.notificacoes-container {
+    background-color: #4e8cca;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Estilizando os cards */
+  .card {
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Personalizando a barra de progresso */
+  .progress-bar {
+    background-color: #00ff15 !important;
+  }
+  
+  /* Ícones */
+  i {
+    color: #007bff;
+  }
+  
+  /* Lista de tarefas pendentes */
+  .list-group-item {
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .list-group-item:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+  }
+  .bi{
+    color: aqua;
+  }
+  
+  body{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .card{
+    border: none;
+  }
+  

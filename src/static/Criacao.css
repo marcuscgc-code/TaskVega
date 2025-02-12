@@ -1,0 +1,145 @@
+/* Estilos aplicados apenas dentro da ID #controle */
+#controle {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Header */
+#controle #header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#controle #header button {
+    background-color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#controle #header button i {
+    font-size: 1.2rem;
+}
+
+/* Lista de Tarefas */
+#controle .list-group {
+    margin-top: 10px;
+}
+
+#controle .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+}
+
+#controle .list-group-item .badge {
+    font-size: 1rem;
+}
+
+/* Quadro */
+#controle .card {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#controle .card-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#controle .card-body {
+    padding: 10px;
+}
+
+/* Calendário */
+#controle .calendar .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+#controle .calendar .card-body {
+    padding: 10px;
+}
+
+#controle .calendar .d-flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+#controle .calendar .text-primary {
+    color: #007bff;
+}
+
+/* Footer */
+#controle #footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#controle #footer button {
+    background-color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#controle #footer button i {
+    font-size: 1.2rem;
+}
+
+.cabeca{
+    background-color: #5664f5;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #controle .card {
+        margin-bottom: 10px;
+    }
+
+    #controle .list-group-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #controle .list-group-item .btn {
+        margin-top: 5px;
+    }
+}
+
+.cor-botao{
+    background-color: #5664f5;
+}
+
+.container {
+    background-color: #f8f8f8;
+}
+/* Palheta de Cores */
+/* #5664f5 */
