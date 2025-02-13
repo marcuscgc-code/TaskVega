@@ -9,4 +9,5 @@ export const Footer_C = () =>{
     </div>
 </footer>
     );
+    
 };
