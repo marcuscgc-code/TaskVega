@@ -12,7 +12,7 @@ export const Criacao = () => {
 	const [ordem, setOrdem] = useState('');
 	// tem 3 opcoes
 	const [miniTarefas, setMiniTarefas] = useState(['', '', '']);
-	const [anexos, setAnexos] = useState([]);
+	const [anexos,setAnexos] = useState([]);
 	/* Evitar que o formulário recarregue a página ao ser submetido.
 Registrar no console os dados capturados (provavelmente armazenados em um estado React).
 Dependendo de onde esse código está inserido, pode haver um objetivo maior, como salvar esses dados em um banco de dados, enviá-los para uma API ou atualizar o estado global da aplicação. */
@@ -65,10 +65,13 @@ Dependendo de onde esse código está inserido, pode haver um objetivo maior, co
           </div>
           <div className="mb-3">
             <label className="form-label">Ordem</label>
-            <div>
-              <input type="radio" name="ordem" id="alto" value="Alto" onChange={(e) => setOrdem(e.target.value)} /> <label htmlFor="alto">Alto</label>
-              <input type="radio" name="ordem" id="medio" value="Médio" onChange={(e) => setOrdem(e.target.value)} /> <label htmlFor="medio">Médio</label>
-              <input type="radio" name="ordem" id="baixo" value="Baixo" onChange={(e) => setOrdem(e.target.value)} /> <label htmlFor="baixo">Baixo</label>
+            <div className='separadorOrdem'>
+              <input type="radio" name="ordem" id="alto" value="Alto" onChange={(e) => setOrdem(e.target.value)} />
+               <label className='testa' htmlFor="alto">Alto</label>
+              <input type="radio" name="ordem" id="medio" value="Médio" onChange={(e) => setOrdem(e.target.value)} />
+               <label htmlFor="medio">Médio</label>
+              <input type="radio" name="ordem" id="baixo" value="Baixo" onChange={(e) => setOrdem(e.target.value)} /> 
+              <label htmlFor="baixo">Baixo</label>
             </div>
           </div>
           <div className="mb-3">
@@ -90,7 +93,7 @@ Dependendo de onde esse código está inserido, pode haver um objetivo maior, co
           </div>
           <div className="mb-3">
             <label className="form-label">Anexos</label>
-            <button className="btn btn-custom w-100">Adicionar Arquivo</button>
+            <button className="btn btn-dark w-100">Adicionar Arquivo</button>
           </div>
           <button type="submit" className="btn btn-primary w-100 cor-botao">Salvar</button>
         </form>

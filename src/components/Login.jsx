@@ -1,14 +1,15 @@
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-
+import "../static/Login.css";
 export const Login = () => {
   return (
     <>
       <div
-        className="container d-flex justify-content-center align-items-center p-2"
+        className="container d-flex justify-content-center align-items-center p-2 "
         style={{
           height: "100vh",
           width: "100vw",
+          
         }}
       >
         <div
@@ -20,7 +21,7 @@ export const Login = () => {
           <div className="form_container">
             <form>
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">
+                <label htmlFor="email" className="form-label email">
                   Email
                 </label>
                 <input
@@ -31,7 +32,7 @@ export const Login = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="senha" className="form-label">
+                <label htmlFor="senha" className="form-label senha">
                   Senha
                 </label>
                 <input
@@ -53,10 +54,12 @@ export const Login = () => {
             </form>
             <hr />
             <div className="text-center my-3">Ou</div>
-            <button className="btn btn-custom w-100 mb-2">Google</button>
-            <button className="btn btn-custom w-100">Facebook</button>
+            <button className="btn btn-custom  btn-dark w-100 mb-2">Google</button>
+            <button className="btn btn-custom btn-dark w-100">Facebook</button>
           </div>
-          <Footer />
+          <div className="testeAltura">
+          <Footer/>
+          </div>
         </div>
       </div>
     </>

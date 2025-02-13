@@ -143,3 +143,11 @@
 }
 /* Palheta de Cores */
 /* #5664f5 */
+.separadorOrdem{
+    display: flex;
+    justify-content: space-around;
+} 
+
+.testa{
+    border-color: #007bff 10px;
+}

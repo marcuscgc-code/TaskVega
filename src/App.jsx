@@ -6,13 +6,14 @@ import { Login } from "./components/Login";
 import {Controle} from "./components/Controle";
 import { Notificacoes } from "./components/Notificacao";
 import { Criacao } from "./components/Criacao";
+import { Desafio } from "./components/Desafios";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Controle/>
+      <Login/>
     </>
   );
 }

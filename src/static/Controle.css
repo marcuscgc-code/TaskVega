@@ -1,13 +1,30 @@
 .botao-ver{
     background-color:#5664f5 ;
     color: white;
+    box-shadow: -2px 1px 2px  black
 }
 
 .botao-quadro {
     background-color: #5664f5;
     color: white;
+    box-shadow: 2px 1px 1px  black
 }
 
 .card-body{
-    box-shadow: #5664f5;
+    box-shadow: 2px 2px 3px  black
+
+}
+
+.inclusao {
+    background-color: #5664f5;
+    width: auto;
+    display: block;
+    height: max-content;
+    
+}
+
+.espaca{
+    margin-bottom: 100px;
+    height: 100px;
+    
 }

@@ -1,0 +1,125 @@
+/* Estilos globais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container principal */
+  .container {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  /* Cabeçalho */
+  .header {
+    background-color: #d0e3ff;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid white;
+  }
+  
+  .icon-button {
+    background-color: #6c63ff;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Card de progresso */
+  .card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .progress-bar {
+    height: 8px;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    position: relative;
+  }
+  
+  .progress-bar span {
+    position: absolute;
+    height: 100%;
+    border-radius: 5px;
+  }
+  
+  .progress-bar.blue span {
+    background-color: #4a90e2;
+  }
+  
+  .progress-bar.red span {
+    background-color: #ff4b5c;
+  }
+  
+  /* Lista de tarefas */
+  .task-list {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .task-item:last-child {
+    border-bottom: none;
+  }
+  
+  .task-icon {
+    font-size: 1.2rem;
+    margin-right: 5px;
+  }
+  
+  .task-date {
+    color: #ff5733;
+    font-weight: bold;
+  }
+  
+  /* Footer */
+  .footer {
+
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #ff4b5c;
+  }
+  
+  .footer i {
+    font-size: 1.5rem;
+  }
+  
