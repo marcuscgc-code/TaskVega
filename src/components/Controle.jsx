@@ -1,9 +1,38 @@
-import { Footer } from './Footer';
+import { useState } from 'react';
+import { Footer } from '../Fragments/Footer';
 import { Footer_C } from '../Fragments/Footer_C';
 import { Header_C } from '../Fragments/Header_C';
 import '../static/Controle.css';
 
 export const Controle = () => {
+	const [fazerTasks, setFazerTasks] = useState(['Projetos Novos', 'Realizar Testes']); // Initial tasks for "Fazer"
+	const [feitoTasks, setFeitoTasks] = useState([]); // Initial tasks for "Feito"
+
+	const moveTask = (task, fromFazer) => {
+		if (fromFazer) {
+			// Remove task from "Fazer" and add to "Feito"
+			setFazerTasks(fazerTasks.filter(t => t !== task));
+			setFeitoTasks([...feitoTasks, task]);
+		} else {
+			// Remove task from "Feito" and add to "Fazer"
+			setFeitoTasks(feitoTasks.filter(t => t !== task));
+			setFazerTasks([...fazerTasks, task]);
+		}
+	};
+
+	const TaskItem = ({ task, isFazer }) => (
+		<div className="d-flex justify-content-between align-items-center mb-2">
+			<label className="d-flex align-items-center">
+				<input
+					type="checkbox"
+					onChange={() => moveTask(task, isFazer)}
+					className="me-2"
+				/>
+				<span>{task}</span>
+			</label>
+		</div>
+	);
+
 	return (
 		<>
 			<Header_C />
@@ -42,25 +71,27 @@ export const Controle = () => {
 						</section>
 
 						{/* Quadro */}
-						<section className="mb-2 ">
+						<section className="mb-2">
 							<h2>Quadro</h2>
 							<div className="row">
 								<div className="col-md-4 mb-3">
-									<div className="card">
-										<div className="card-header  botao-quadro">Fazer</div>
-										<div className="card-body"></div>
-									</div>
-								</div>
-								<div className="col-md-4 mb-3">
 									<div className="card ">
-										<div className="card-header botao-quadro">Em Progresso</div>
-										<div className="card-body "></div>
+										<div className="card-header botao-quadro ">Fazer</div>
+										<div className="card-body text-custom">
+											{fazerTasks.map((task, index) => (
+												<TaskItem key={index} task={task} isFazer={true} />
+											))}
+										</div>
 									</div>
 								</div>
 								<div className="col-md-4 mb-3">
 									<div className="card">
 										<div className="card-header botao-quadro">Feito</div>
-										<div className="card-body"></div>
+										<div className="card-body text-custom1">
+											{feitoTasks.map((task, index) => (
+												<TaskItem key={index} task={task} isFazer={false} />
+											))}
+										</div>
 									</div>
 								</div>
 							</div>
@@ -70,7 +101,7 @@ export const Controle = () => {
 						<section className="mb-4">
 							<h2>Calendário</h2>
 							<div className="card">
-								<div className="card-header d-flex justify-content-between align-items-center ">
+								<div className="card-header d-flex justify-content-between align-items-center">
 									Janeiro 2025 <i className="bi bi-calendar"></i>
 								</div>
 								<div className="card-body">
@@ -97,7 +128,6 @@ export const Controle = () => {
 							<div className="espaca"></div>
 						</section>
 					</main>
-
 					<Footer_C />
 				</div>
 			</div>

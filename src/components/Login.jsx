@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Footer } from "./Footer";
-import { Header } from "./Header";
+import { Footer } from "../Fragments/Footer"; // Usando o caminho do seu amigo (mais organizado)
+import { Header } from "../Fragments/Header"; // Usando o caminho do seu amigo
 import "../static/Login.css";
 import axios from 'axios';
 
@@ -16,10 +16,8 @@ export const Login = () => {
                 password,
             });
             console.log('Login bem-sucedido:', response.data);
-            // Salve o token no localStorage ou no estado global
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
-            // Redirecione o usuário para a página inicial ou dashboard
             window.location.href = '/';
         } catch (error) {
             console.error('Erro no login:', error.response?.data);

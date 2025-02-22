@@ -2,7 +2,7 @@
 import { ProgressBar } from "react-bootstrap";
 import { Footer_D } from "../Fragments/Footer_D";
 import { Header_D } from "../Fragments/Header_D";
-import { Header } from "./Header";
+import { Header } from "../Fragments/Header";
 import "../static/Desafio.css";
 
 export const Desafio = () => {

@@ -7,6 +7,7 @@ import {Controle} from "./components/Controle";
 import { Notificacoes } from "./components/Notificacao";
 import { Criacao } from "./components/Criacao";
 import { Desafio } from "./components/Desafios";
+import { Visao } from "./components/Visao"
 
 function App() {
   const [count, setCount] = useState(0);
