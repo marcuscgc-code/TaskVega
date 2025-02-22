@@ -1,36 +1,48 @@
-/* Estilos globais */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
-  }
-  
-  /* Container principal */
-  .container {
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  /* Cabeçalho */
-  .header {
+}
+
+.container-fluid {
+    padding: 0;
+    background: linear-gradient(to bottom, #5664f5, #8c94ff, #d1d5ff);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
     background-color: #d0e3ff;
     padding: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-pic {
+    margin-bottom: 10px;
+}
+
+.profile-pic {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     border: 3px solid white;
-  }
-  
-  .icon-button {
+    object-fit: cover;
+}
+
+.crown {
+    font-size: 1.2rem;
+    margin-left: 5px;
+}
+
+.header-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-button {
     background-color: #6c63ff;
     border-radius: 50%;
     width: 45px;
@@ -41,85 +53,205 @@ body {
     color: white;
     font-size: 1.5rem;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Card de progresso */
-  .card {
-    background: white;
+    border: none;
+}
+
+.icon-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+}
+
+/* Ícones no header (espaço para adicionar imagens) */
+.header-icon.lightbulb {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url(''); /* Adicione o caminho da imagem do ícone de lâmpada aqui */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.header-icon.heart {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url(''); /* Adicione o caminho da imagem do ícone de coração aqui */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.card {
     border-radius: 15px;
-    padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .progress-bar-container {
+    background: white;
+    border: none;
+}
+
+.level-title {
+    color: #007bff;
+}
+
+.level-badge {
+    background-color: #ffca2c;
+    font-size: 0.875rem;
+}
+
+.progress-bar-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .progress-bar {
+    gap: 5px;
+}
+
+.progress-bar {
     height: 8px;
     border-radius: 5px;
     background-color: #e0e0e0;
     position: relative;
-  }
-  
-  .progress-bar span {
-    position: absolute;
+}
+
+.progress-bar.blue span {
+    background-color: #4a90e2;
     height: 100%;
     border-radius: 5px;
-  }
-  
-  .progress-bar.blue span {
-    background-color: #4a90e2;
-  }
-  
-  .progress-bar.red span {
-    background-color: #ff4b5c;
-  }
-  
-  /* Lista de tarefas */
-  .task-list {
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .task-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .task-item:last-child {
-    border-bottom: none;
-  }
-  
-  .task-icon {
-    font-size: 1.2rem;
-    margin-right: 5px;
-  }
-  
-  .task-date {
-    color: #ff5733;
-    font-weight: bold;
-  }
-  
-  /* Footer */
-  .footer {
+}
 
-    padding: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+.progress-bar.red span {
     background-color: #ff4b5c;
-  }
-  
-  .footer i {
-    font-size: 1.5rem;
-  }
-  
+    height: 100%;
+    border-radius: 5px;
+}
+
+.stats-card .stat-item {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.progress-custom {
+    background-color: #e0e0e0 !important;
+    height: 8px !important;
+    border-radius: 5px !important;
+}
+
+.progress-custom .progress-bar {
+    background-color: #007bff !important;
+}
+
+.tasks-title {
+    font-size: 1.25rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table td {
+    padding: 8px;
+    border: none;
+    font-size: 0.875rem;
+}
+
+.table td:first-child {
+    color: #ff5733;
+}
+
+.text-danger {
+    color: #ff5733 !important;
+}
+
+.btn-danger, .btn-outline-danger {
+    background-color: #ff5733;
+    border-color: #ff5733;
+    color: white;
+    font-size: 0.875rem;
+}
+
+.btn-outline-danger {
+    background-color: transparent;
+    color: #ff5733;
+    border-color: #ff5733;
+}
+
+.btn-outline-danger:hover {
+    background-color: #ff5733;
+    color: white;
+    border-color: #ff5733;
+}
+
+/* Ícones nas tarefas e botões (espaço para adicionar imagens) */
+.task-icon.trash {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(''); /* Adicione o caminho da imagem do ícone de lixeira aqui */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.task-icon.chevron-left {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(''); /* Adicione o caminho da imagem do ícone de seta esquerda aqui */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.task-icon.chevron-right {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(''); /* Adicione o caminho da imagem do ícone de seta direita aqui */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+    }
+
+    .profile-pic {
+        width: 40px;
+        height: 40px;
+    }
+
+    .icon-button {
+        width: 35px;
+        height: 35px;
+        font-size: 1.25rem;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .level-title, .tasks-title {
+        font-size: 1rem;
+    }
+
+    .level-badge {
+        font-size: 0.75rem;
+    }
+
+    .table td {
+        font-size: 0.75rem;
+    }
+
+    .btn-danger, .btn-outline-danger {
+        font-size: 0.75rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .content {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}

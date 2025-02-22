@@ -1,153 +1,146 @@
-/* Estilos aplicados apenas dentro da ID #controle */
-#controle {
+body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
 
+.container-fluid {
+    padding: 0;
+    background: linear-gradient(to bottom, #5664f5, #8c94ff, #d1d5ff);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #007bff;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+}
 
-/* Header */
-#controle #header {
+.card h2 {
+    color: #007bff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.form-control, .form-control-lg {
+    border-radius: 8px;
+    border: 2px solid #007bff;
+    font-size: 1rem;
+    padding: 0.75rem;
+}
+
+.form-control:focus, .form-control-lg:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.input-group-text {
     background-color: #007bff;
     color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#controle #header button {
-    background-color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 0 8px 8px 0;
 }
 
-#controle #header button i {
-    font-size: 1.2rem;
+.form-check-input {
+    border-radius: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
-/* Lista de Tarefas */
-#controle .list-group {
-    margin-top: 10px;
-}
-
-#controle .list-group-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    background-color: white;
-}
-
-#controle .list-group-item .badge {
-    font-size: 1rem;
-}
-
-/* Quadro */
-#controle .card {
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-#controle .card-header {
-    background-color: #f8f9fa;
-    padding: 10px;
-    font-weight: bold;
-}
-
-#controle .card-body {
-    padding: 10px;
-}
-
-/* Calendário */
-#controle .calendar .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 10px;
-}
-
-#controle .calendar .card-body {
-    padding: 10px;
-}
-
-#controle .calendar .d-flex {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
-
-#controle .calendar .text-primary {
+.form-check-label {
     color: #007bff;
+    margin-left: 0.5rem;
 }
 
-/* Footer */
-#controle #footer {
-    background-color: #343a40;
-    color: white;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
+.custom-radio:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary {
+    background-color: #5664f5;
+    border-color: black;
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #e4a213;
+    border-color: #0056b3;
+}
+
+.footer-container {
+    background-color: #007bff;
+    position: relative;
     width: 100%;
+    padding: 10px 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+.footer-nav {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
-#controle #footer button {
-    background-color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.footer-item {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
 }
 
-#controle #footer button i {
-    font-size: 1.2rem;
-}
-
-.cabeca{
-    background-color: #5664f5;
+.footer-icon {
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    #controle .card {
-        margin-bottom: 10px;
+    .card {
+        margin: 10px;
+        padding: 15px;
     }
 
-    #controle .list-group-item {
-        flex-direction: column;
-        align-items: flex-start;
+    .form-control, .form-control-lg, .btn {
+        font-size: 0.875rem;
+        padding: 0.5rem;
     }
 
-    #controle .list-group-item .btn {
-        margin-top: 5px;
+    .form-label {
+        font-size: 0.875rem;
+    }
+
+    .card h2 {
+        font-size: 1.25rem;
+    }
+
+    .footer-item {
+        font-size: 10px;
+    }
+
+    .footer-icon {
+        font-size: 16px;
     }
 }
 
-.cor-botao{
-    background-color: #5664f5;
-}
-
-.container {
-    background-color: #f8f8f8;
-}
-/* Palheta de Cores */
-/* #5664f5 */
-.separadorOrdem{
-    display: flex;
-    justify-content: space-around;
-} 
-
-.testa{
-    border-color: #007bff 10px;
+@media (min-width: 769px) {
+    .card {
+        max-width: 600px;
+    }
 }

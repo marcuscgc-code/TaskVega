@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 0;
+    background: linear-gradient(to bottom, #5664f5, #8c94ff, #d1d5ff);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #007bff;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+}
+
+.card h2 {
+    color: #007bff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.form-control, .form-control-lg {
+    border-radius: 8px;
+    border: 2px solid #007bff;
+    font-size: 1rem;
+    padding: 0.75rem;
+    background-color: #f1f3f5; /* Leve cinza para indicar "somente leitura" */
+}
+
+.form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+.btn-close {
+    background-color: #dc3545; /* Vermelho */
+    border: none;
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+}
+
+.btn-close:hover {
+    background-color: #c82333; /* Vermelho mais escuro no hover */
+}
+
+.footer-container {
+    background-color: #007bff;
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-item {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.footer-icon {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .card {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .form-control, .form-control-lg, .btn {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+    }
+
+    .form-label {
+        font-size: 0.875rem;
+    }
+
+    .card h2 {
+        font-size: 1.25rem;
+    }
+
+    .footer-item {
+        font-size: 10px;
+    }
+
+    .footer-icon {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) {
+    .card {
+        max-width: 600px;
+    }
+}

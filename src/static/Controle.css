@@ -1,30 +1,271 @@
-.botao-ver{
-    background-color:#5664f5 ;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid #5664f5;
+    background-color: #f0f8ff;
+}
+
+.card-header {
+    background-color: #5664f5;
     color: white;
-    box-shadow: -2px 1px 2px  black
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px
+    
+}
+
+
+.card-body {
+    box-shadow: 2px 2px 3px black;
+    padding: 15px;
+    background-color: #e9ecef;
+    font-size: 16px;
+}
+
+.botao-ver {
+    background-color: #5664f5;
+    color: white;
+    box-shadow: -2px 1px 2px black;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 12px;
 }
 
 .botao-quadro {
     background-color: #5664f5;
     color: white;
-    box-shadow: 2px 1px 1px  black
+    box-shadow: 2px 1px 4px black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+    
+    
 }
 
-.card-body{
-    box-shadow: 2px 2px 3px  black
-
+.badge {
+    --bs-badge-padding-x: 0.65em;
+    --bs-badge-padding-y: 0.35em;
+    --bs-badge-font-size: 0.75em;
+    --bs-badge-font-weight: 700;
+    --bs-badge-color: #0cc4fc;
+    --bs-badge-border-radius: var(--bs-border-radius);
+    display: inline-block;
+    padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+    font-size: var(--bs-badge-font-size);
+    font-weight: var(--bs-badge-font-weight);
+    line-height: 1;
+    color: var(--bs-badge-color);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--bs-badge-border-radius);
+    width: 40px;
+    height: 20px;
+    
 }
 
 .inclusao {
     background-color: #5664f5;
-    width: auto;
+    width: 100%;
     display: block;
-    height: max-content;
-    
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.espaca{
-    margin-bottom: 100px;
-    height: 100px;
+.espaca {
+    margin-bottom: 10px;
+    height: 10px;
+}
+
+.btn.filtro, .btn.trofeu, .btn.dados {
+    background-size: 30px 30px;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1);
+    background-color: transparent;
+    border: none;
+}
+
+.btn.filtro {
+    background-image: url("/icons_imagem/filtro.png");
+}
+
+.btn.trofeu {
+    background-image: url("/icons_imagem/troféu.png");
+}
+
+.btn.dados {
+    background-image: url("/icons_imagem/estatiticas.png");
+}
+
+.fundo {
+    background-color: #5664f5 !important;
+    background-image: url("/icons_imagem/taskvega6.png") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 200px auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .card {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .botao-ver, .botao-quadro {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .inclusao {
+        padding: 5px 0;
+    }
+
+    .btn.filtro, .btn.trofeu, .btn.dados {
+        width: 40px;
+        height: 40px;
+        background-size: 25px 25px;
+    }
+}
+
+/* Novas Alterações */
+.card-header {
+    background-color: #5664f5;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    font-weight: bolder; /* Torna o texto mais bold */
+    text-align: left;
+    font-size: 16px; /* Mesmo tamanho que os títulos como "Projetos Novos" */
+    padding: 10px; /* Ajusta o padding para melhor legibilidade */
+}
+
+/* Mantém o estilo da classe botao-quadro, mas garante que herde o font-weight e o tamanho */
+.botao-quadro {
+    background-color: #5664f5;
+    color: white;
+    box-shadow: 2px 1px 1px black;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bolder; /* Garante que o texto seja bold */
+    font-size: 16px; /* Mesmo tamanho que os títulos */
+}
+    /* Adicao de botao */
+.teste{
+background-image: url("/icons_imagem/opcao.png");
+background-size: contain;
+background-repeat: no-repeat;
+/* teste de melhora do botao */
+display: inline-flex;
+align-items: center;
+padding: 15px 30px;
+min-width: 25px;
+min-height: 25px;
+}
+
+.nome_custon{
+    font-weight: bolder;
+    font-size: 16px;
+    background-color:#5664f5;
+    color: white;
+    border-color: rgb(255, 255, 255) ;
+    border-width: 2px;
     
+}
+/* Modificação de task */
+.task-item {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-item span {
+    color: #800080; /* Purple text color for task titles */
+}
+
+/* Optional: If you want a purple background for tasks */
+.task-item {
+    background-color: #800080; /* Purple background */
+    color: white; /* White text for readability */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.task-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.text-custom{
+color: #5664f5;
+font-weight: bolder;
+font-size: 16px;
+    
+}
+.text-custon{
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+/* Deixar o nome em vermelho e lixeira */
+/* Mantém o CSS original e adiciona o seguinte: */
+
+/* Estilo para tarefas no "Feito" */
+.task-item.done span {
+    color: #ff0000; /* Vermelho para tarefas concluídas */
+}
+
+/* Ícone de lixeira */
+.trash-icon {
+    background-image: url("/icons_imagem/trash.png"); /* Substitua pelo caminho real do ícone */
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Ajuste no task-item para alinhar o ícone à direita */
+.task-item {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }

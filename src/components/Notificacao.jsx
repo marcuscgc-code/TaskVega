@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
+import { Header } from "../Fragments/Header";
+import { Footer } from "../Fragments/Footer";
 import "../static/Notificacoes.css";
 
 export const Notificacoes = () => {

@@ -1,13 +1,105 @@
-.testeAltura{
-    margin-top: 40%;
-}
-.email, .senha{
-    color: black;
-    margin: 10px 0px;
+/* Garante que os estilos só afetem a página de login */
+.login-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
 }
 
-.botao{
-    margin: padd
-    backgroun
-    border -so
+/* Fundo escuro ajustado */
+.login-page .fundo_img {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("/outros/fundouizard.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+}
+
+.login-page .fundo_img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* Garantindo que o formulário fique acima do fundo */
+.login-page .form_container {
+    position: relative;
+    z-index: 3;
+}
+
+/* Ajuste do título */
+.login-page .conteudo h1 {
+    color: white;
+    font-size: 2rem;
+}
+
+/* Caixa do formulário */
+.login-page .bordas_form {
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+/* Botão customizado apenas para login */
+.login-page .botao-personalizado {
+    background-color: #5664f5;
+    color: white;
+    font-weight: bold;
+}
+
+/* Ícones */
+.login-page .icons-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.login-page .icon-foguete, 
+.login-page .icon-controle {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Header */
+.login-page .xarope {
+    background-image: url("/icons_imagem/headerRodrigo2.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 150px;
+    margin: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.login-page .footer_cima {
+    position: relative;
+    z-index: 3;
+    margin-top: 80px;
+}
+
+.xarope{
+    background-image: url("/icons_imagem/headerRodrigo2.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 80px;
+    margin: 10px;
+    position: relative;
+    z-index: 2;
 }
