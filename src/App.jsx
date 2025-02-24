@@ -1,22 +1,35 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { Login } from "./components/Login";
-import {Controle} from "./components/Controle";
-import { Notificacoes } from "./components/Notificacao";
-import { Criacao } from "./components/Criacao";
-import { Desafio } from "./components/Desafios";
-import { Visao } from "./components/Visao"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Login } from './components/Login';
+import { Controle } from './components/Controle';
+import { Notificacoes } from './components/Notificacao';
+import { Criacao } from './components/Criacao';
+import { Desafio } from './components/Desafios';
+import { Visao } from './components/Visao';
 
 function App() {
-  const [count, setCount] = useState(0);
+    return (
+        <Router>
+            <Routes>
+                {/* Rota para a tela de Login */}
+                <Route path="/" element={<Login />} />
 
-  return (
-    <>
-      <Login/>
-    </>
-  );
+                {/* Rota para a tela de Controle */}
+                <Route path="/controle" element={<Controle />} />
+
+                {/* Rota para a tela de Notificações */}
+                <Route path="/notificacoes" element={<Notificacoes />} />
+
+                {/* Rota para a tela de Criação */}
+                <Route path="/criacao" element={<Criacao />} />
+
+                {/* Rota para a tela de Desafios */}
+                <Route path="/desafio" element={<Desafio />} />
+
+                {/* Rota para a tela de Visão */}
+                <Route path="/visao" element={<Visao />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

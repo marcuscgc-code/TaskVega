@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Header } from '../Fragments/Header';
 import { Footer_Cria } from '../Fragments/Footer_Cria';
 import "../static/Criacao.css";
+import axios from 'axios'; // Importe o axios para fazer requisições HTTP
 
 export const Criacao = () => {
     const [nome, setNome] = useState('');
@@ -11,9 +12,36 @@ export const Criacao = () => {
     const [miniTarefas, setMiniTarefas] = useState(['', '', '']);
     const [anexos, setAnexos] = useState([]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ nome, descricao, data, ordem, miniTarefas, anexos });
+
+        // Dados da tarefa principal
+        const dadosTarefa = {
+            nome,
+            descricao,
+            data_prazo: data, // Certifique-se de que a data está no formato correto (YYYY-MM-DD)
+            prioridade: ordem,
+            miniTarefas: miniTarefas.filter(tarefa => tarefa.trim() !== ''), // Filtra mini tarefas vazias
+            anexos, // Aqui você pode adicionar lógica para upload de arquivos
+        };
+
+        try {
+            // Envia os dados para o backend
+            const response = await axios.post('http://localhost:8000/api/tarefas', dadosTarefa);
+            console.log('Tarefa criada com sucesso:', response.data);
+            alert('Tarefa criada com sucesso!');
+
+            // Limpa o formulário após a criação
+            setNome('');
+            setDescricao('');
+            setData('');
+            setOrdem('');
+            setMiniTarefas(['', '', '']);
+            setAnexos([]);
+        } catch (error) {
+            console.error('Erro ao criar tarefa:', error.response?.data);
+            alert('Erro ao criar tarefa. Tente novamente.');
+        }
     };
 
     const handleMiniTarefaChange = (index, value) => {
@@ -22,9 +50,23 @@ export const Criacao = () => {
         setMiniTarefas(novasTarefas);
     };
 
+    const handleAnexoChange = (e) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            const novosAnexos = [...anexos];
+            for (let i = 0; i < files.length; i++) {
+                novosAnexos.push({
+                    nome: files[i].name,
+                    arquivo: files[i],
+                });
+            }
+            setAnexos(novosAnexos);
+        }
+    };
+
     return (
         <div id="controle" className="container-fluid d-flex flex-column min-vh-100">
-            <Header/>
+            <Header />
             <div className="card p-4 border border-2 border-dark shadow-sm mb-auto mx-auto" style={{ maxWidth: '600px', width: '100%' }}>
                 <h2 className="text-center mb-3 d-flex align-items-center justify-content-center">
                     Criação e Edição <span style={{ fontSize: '20px', marginLeft: '5px' }}>✏️</span>
@@ -40,6 +82,7 @@ export const Criacao = () => {
                             value={nome} 
                             onChange={(e) => setNome(e.target.value)}
                             style={{ borderRadius: '8px' }}
+                            required
                         />
                     </div>
                     <div className="mb-3">
@@ -52,19 +95,20 @@ export const Criacao = () => {
                             value={descricao} 
                             onChange={(e) => setDescricao(e.target.value)}
                             style={{ borderRadius: '8px' }}
+                            required
                         />
                     </div>
                     <div className="mb-3">
                         <label className="form-label fw-bold text-muted">Data</label>
                         <div className="input-group">
                             <input 
-                                type="text" 
+                                type="date" // Alterado para type="date" para facilitar a entrada de datas
                                 className="form-control form-control-lg border-primary" 
                                 placeholder="MM/DD/YYYY" 
                                 value={data} 
                                 onChange={(e) => setData(e.target.value)}
-                                readOnly
                                 style={{ borderRadius: '8px 0 0 8px' }}
+                                required
                             />
                             <span className="input-group-text bg-primary text-white" style={{ borderRadius: '0 8px 8px 0' }}>📅</span>
                         </div>
@@ -78,9 +122,10 @@ export const Criacao = () => {
                                     className="form-check-input border-primary custom-radio" 
                                     id="alto" 
                                     name="ordem" 
-                                    value="Alto" 
-                                    checked={ordem === 'Alto'} 
+                                    value="Alta" 
+                                    checked={ordem === 'Alta'} 
                                     onChange={(e) => setOrdem(e.target.value)}
+                                    required
                                 />
                                 <label className="form-check-label text-primary" htmlFor="alto">Alto</label>
                             </div>
@@ -90,8 +135,8 @@ export const Criacao = () => {
                                     className="form-check-input border-primary custom-radio" 
                                     id="medio" 
                                     name="ordem" 
-                                    value="Médio" 
-                                    checked={ordem === 'Médio'} 
+                                    value="Média" 
+                                    checked={ordem === 'Média'} 
                                     onChange={(e) => setOrdem(e.target.value)}
                                 />
                                 <label className="form-check-label text-primary" htmlFor="medio">Médio</label>
@@ -102,8 +147,8 @@ export const Criacao = () => {
                                     className="form-check-input border-primary custom-radio" 
                                     id="baixo" 
                                     name="ordem" 
-                                    value="Baixo" 
-                                    checked={ordem === 'Baixo'} 
+                                    value="Baixa" 
+                                    checked={ordem === 'Baixa'} 
                                     onChange={(e) => setOrdem(e.target.value)}
                                 />
                                 <label className="form-check-label text-primary" htmlFor="baixo">Baixo</label>
@@ -126,7 +171,13 @@ export const Criacao = () => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label fw-bold text-muted">Anexos</label>
-                        <button type="button" className="btn btn-dark w-100 py-2" style={{ borderRadius: '8px' }}>Adicionar Arquivo</button>
+                        <input 
+                            type="file" 
+                            className="form-control form-control-lg border-primary" 
+                            onChange={handleAnexoChange}
+                            multiple // Permite selecionar vários arquivos
+                            style={{ borderRadius: '8px' }}
+                        />
                     </div>
                     <button type="submit" className="btn btn-primary w-100 py-3 cor-botao mb-4" style={{ borderRadius: '8px' }}>Salvar</button>
                 </form>

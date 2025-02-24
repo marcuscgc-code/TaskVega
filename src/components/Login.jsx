@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Footer } from "../Fragments/Footer"; // Usando o caminho do seu amigo (mais organizado)
-import { Header } from "../Fragments/Header"; // Usando o caminho do seu amigo
-import "../static/Login.css";
+import { useNavigate } from 'react-router-dom'; // Importe o useNavigate
 import axios from 'axios';
+import { Footer } from "../Fragments/Footer";
+import { Header } from "../Fragments/Header";
+import "../static/Login.css";
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // Hook para redirecionamento
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,10 +17,17 @@ export const Login = () => {
                 email,
                 password,
             });
+
             console.log('Login bem-sucedido:', response.data);
-            localStorage.setItem('access_token', response.data.access);
-            localStorage.setItem('refresh_token', response.data.refresh);
-            window.location.href = '/';
+
+            // Salva o token no localStorage (se estiver usando JWT)
+            if (response.data.access_token) {
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('refresh_token', response.data.refresh_token);
+            }
+
+            // Redireciona para a tela "Controle"
+            navigate('/controle');
         } catch (error) {
             console.error('Erro no login:', error.response?.data);
             alert('Erro no login. Verifique suas credenciais.');
