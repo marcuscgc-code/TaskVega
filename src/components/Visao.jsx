@@ -9,6 +9,7 @@ export const Visao = () => {
     const { id } = useParams(); // Obtém o ID da tarefa da URL
     const navigate = useNavigate();
     const [tarefa, setTarefa] = useState(null);
+    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
 
     // Função para buscar os detalhes da tarefa
     const fetchTarefa = async () => {
@@ -25,6 +26,8 @@ export const Visao = () => {
         } catch (error) {
             console.error('Erro ao buscar tarefa:', error.response?.data);
             alert('Erro ao buscar tarefa. Tente novamente.');
+        } finally {
+            setLoading(false); // Finaliza o carregamento
         }
     };
 
@@ -37,8 +40,12 @@ export const Visao = () => {
         navigate(-1); // Volta para a página anterior
     };
 
-    if (!tarefa) {
+    if (loading) {
         return <div>Carregando...</div>; // Exibe uma mensagem de carregamento enquanto os dados são buscados
+    }
+
+    if (!tarefa) {
+        return <div>Tarefa não encontrada.</div>; // Exibe uma mensagem de erro se a tarefa não for encontrada
     }
 
     return (
@@ -75,33 +82,56 @@ export const Visao = () => {
                     <input 
                         type="text" 
                         className="form-control form-control-lg border-primary" 
-                        value={tarefa.data} 
+                        value={tarefa.data_prazo} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label fw-bold text-muted">Ordem</label>
+                    <label className="form-label fw-bold text-muted">Prioridade</label>
                     <input 
                         type="text" 
                         className="form-control form-control-lg border-primary" 
-                        value={tarefa.ordem} 
+                        value={tarefa.prioridade} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label fw-bold text-muted">MiniTarefas</label>
-                    {tarefa.miniTarefas.map((miniTarefa, index) => (
-                        <input 
-                            key={index} 
-                            type="text" 
-                            className="form-control form-control-lg border-primary mb-2" 
-                            value={miniTarefa} 
-                            disabled
-                            style={{ borderRadius: '8px' }}
-                        />
-                    ))}
+                    <label className="form-label fw-bold text-muted">Mini Tarefas</label>
+                    {tarefa.miniTarefas && tarefa.miniTarefas.length > 0 ? (
+                        tarefa.miniTarefas.map((miniTarefa, index) => (
+                            <input 
+                                key={index} 
+                                type="text" 
+                                className="form-control form-control-lg border-primary mb-2" 
+                                value={miniTarefa.descricao} 
+                                disabled
+                                style={{ borderRadius: '8px' }}
+                            />
+                        ))
+                    ) : (
+                        <p>Nenhuma mini tarefa cadastrada.</p>
+                    )}
+                </div>
+                <div className="mb-3">
+                    <label className="form-label fw-bold text-muted">Anexos</label>
+                    {tarefa.anexos && tarefa.anexos.length > 0 ? (
+                        tarefa.anexos.map((anexo, index) => (
+                            <div key={index} className="mb-2">
+                                <a 
+                                    href={anexo.url_arquivo} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-decoration-none"
+                                >
+                                    {anexo.caminho_arquivo}
+                                </a>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Nenhum anexo cadastrado.</p>
+                    )}
                 </div>
                 <button 
                     type="button" 

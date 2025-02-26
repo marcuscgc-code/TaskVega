@@ -21,8 +21,10 @@ export const Criacao = () => {
             descricao,
             data_prazo: data,
             prioridade: ordem,
-            miniTarefas: miniTarefas.filter(tarefa => tarefa.trim() !== ''),
-            anexos,
+            miniTarefas: miniTarefas
+                .filter(tarefa => tarefa.trim() !== '') // Filtra mini tarefas vazias
+                .map(descricao => ({ descricao })), // Formata as mini tarefas para o backend
+            anexos, // Anexos selecionados
         };
 
         try {

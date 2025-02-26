@@ -107,15 +107,35 @@ const verificarToken = (req, res, next) => {
 
 // Rota para criar uma tarefa (protegida pelo middleware)
 app.post('/api/tarefas', verificarToken, async (req, res) => {
-    const { nome, descricao, data_prazo, prioridade } = req.body;
+    const { nome, descricao, data_prazo, prioridade, miniTarefas, anexos } = req.body;
     const usuario_id = req.userId; // ID do usuário extraído do token
 
     try {
-        const result = await pool.query(
+        // Insere a tarefa principal
+        const resultTarefa = await pool.query(
             'INSERT INTO tarefas (usuario_id, nome, descricao, data_prazo, prioridade) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [usuario_id, nome, descricao, data_prazo, prioridade]
         );
-        res.status(201).json(result.rows[0]);
+
+        const tarefa = resultTarefa.rows[0];
+
+        // Insere as mini tarefas
+        for (const miniTarefa of miniTarefas) {
+            await pool.query(
+                'INSERT INTO mini_tarefas (tarefa_id, descricao) VALUES ($1, $2)',
+                [tarefa.id, miniTarefa.descricao]
+            );
+        }
+
+        // Insere os anexos (se houver)
+        for (const anexo of anexos) {
+            await pool.query(
+                'INSERT INTO anexos (tarefa_id, caminho_arquivo, url_arquivo) VALUES ($1, $2, $3)',
+                [tarefa.id, anexo.nome, anexo.arquivo]
+            );
+        }
+
+        res.status(201).json(tarefa);
     } catch (err) {
         console.error('Erro ao criar tarefa:', err);
         res.status(500).json({ message: 'Erro no servidor' });
@@ -134,6 +154,44 @@ app.get('/api/tarefas', verificarToken, async (req, res) => {
         res.status(200).json(result.rows);
     } catch (err) {
         console.error('Erro ao listar tarefas:', err);
+        res.status(500).json({ message: 'Erro no servidor' });
+    }
+});
+
+// Rota para buscar detalhes de uma tarefa específica
+app.get('/api/tarefas/:id', verificarToken, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Busca a tarefa principal
+        const resultTarefa = await pool.query(
+            'SELECT * FROM tarefas WHERE id = $1',
+            [id]
+        );
+
+        if (resultTarefa.rows.length === 0) {
+            return res.status(404).json({ message: 'Tarefa não encontrada' });
+        }
+
+        const tarefa = resultTarefa.rows[0];
+
+        // Busca as mini tarefas associadas à tarefa
+        const resultMiniTarefas = await pool.query(
+            'SELECT * FROM mini_tarefas WHERE tarefa_id = $1',
+            [id]
+        );
+        tarefa.miniTarefas = resultMiniTarefas.rows;
+
+        // Busca os anexos associados à tarefa
+        const resultAnexos = await pool.query(
+            'SELECT * FROM anexos WHERE tarefa_id = $1',
+            [id]
+        );
+        tarefa.anexos = resultAnexos.rows;
+
+        res.status(200).json(tarefa);
+    } catch (err) {
+        console.error('Erro ao buscar detalhes da tarefa:', err);
         res.status(500).json({ message: 'Erro no servidor' });
     }
 });
