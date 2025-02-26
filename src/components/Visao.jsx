@@ -1,22 +1,45 @@
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Header } from '../Fragments/Header';
 import { Footer_Cria } from '../Fragments/Footer_Cria';
 import "../static/Recebimento.css";
 
 export const Visao = () => {
-    // Simulação de dados vindos do banco (sem anexos agora)
-    const dadosConsulta = {
-        nome: "Projeto Exemplo",
-        descricao: "Descrição do projeto de exemplo para consulta.",
-        data: "02/22/2025",
-        ordem: "Médio",
-        miniTarefas: ["Tarefa 1", "Tarefa 2", "Tarefa 3"]
+    const { id } = useParams(); // Obtém o ID da tarefa da URL
+    const navigate = useNavigate();
+    const [tarefa, setTarefa] = useState(null);
+
+    // Função para buscar os detalhes da tarefa
+    const fetchTarefa = async () => {
+        try {
+            const token = localStorage.getItem('token'); // Recupera o token do localStorage
+            const response = await axios.get(`http://localhost:8000/api/tarefas/${id}`, {
+                headers: {
+                    'Authorization': token // Envia o token no cabeçalho
+                }
+            });
+
+            console.log('Tarefa carregada:', response.data);
+            setTarefa(response.data); // Atualiza o estado com os detalhes da tarefa
+        } catch (error) {
+            console.error('Erro ao buscar tarefa:', error.response?.data);
+            alert('Erro ao buscar tarefa. Tente novamente.');
+        }
     };
 
+    // Busca os detalhes da tarefa ao carregar o componente
+    useEffect(() => {
+        fetchTarefa();
+    }, [id]);
+
     const handleClose = () => {
-        // Lógica para fechar a tela (ajuste conforme necessário)
-        console.log("Fechar tela");
-        // Exemplo: window.history.back(); ou useNavigate do react-router
+        navigate(-1); // Volta para a página anterior
     };
+
+    if (!tarefa) {
+        return <div>Carregando...</div>; // Exibe uma mensagem de carregamento enquanto os dados são buscados
+    }
 
     return (
         <div id="consulta" className="container-fluid d-flex flex-column min-vh-100">
@@ -31,7 +54,7 @@ export const Visao = () => {
                         type="text" 
                         className="form-control form-control-lg border-primary" 
                         id="nome" 
-                        value={dadosConsulta.nome} 
+                        value={tarefa.nome} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
@@ -42,7 +65,7 @@ export const Visao = () => {
                         className="form-control form-control-lg border-primary" 
                         id="descricao" 
                         rows="3" 
-                        value={dadosConsulta.descricao} 
+                        value={tarefa.descricao} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
@@ -52,7 +75,7 @@ export const Visao = () => {
                     <input 
                         type="text" 
                         className="form-control form-control-lg border-primary" 
-                        value={dadosConsulta.data} 
+                        value={tarefa.data} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
@@ -62,19 +85,19 @@ export const Visao = () => {
                     <input 
                         type="text" 
                         className="form-control form-control-lg border-primary" 
-                        value={dadosConsulta.ordem} 
+                        value={tarefa.ordem} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
                 </div>
                 <div className="mb-3">
                     <label className="form-label fw-bold text-muted">MiniTarefas</label>
-                    {dadosConsulta.miniTarefas.map((tarefa, index) => (
+                    {tarefa.miniTarefas.map((miniTarefa, index) => (
                         <input 
                             key={index} 
                             type="text" 
                             className="form-control form-control-lg border-primary mb-2" 
-                            value={tarefa} 
+                            value={miniTarefa} 
                             disabled
                             style={{ borderRadius: '8px' }}
                         />

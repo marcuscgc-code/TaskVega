@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
+const jwt = require('jsonwebtoken'); // Adicionado para JWT
 
 dotenv.config();
 
@@ -21,6 +22,37 @@ const pool = new Pool({
 // Rota principal
 app.get('/', (req, res) => res.send('Servidor rodando! 🚀'));
 
+// Rota de Cadastro
+app.post('/api/cadastro', async (req, res) => {
+    const { nome, email, password } = req.body;
+
+    try {
+        // Verifica se o email já está cadastrado
+        const checkEmail = await pool.query(
+            'SELECT * FROM usuarios WHERE email = $1',
+            [email]
+        );
+
+        if (checkEmail.rows.length > 0) {
+            return res.status(400).json({ message: 'Email já cadastrado' });
+        }
+
+        // Insere o novo usuário no banco de dados
+        const result = await pool.query(
+            'INSERT INTO usuarios (nome, email, senha) VALUES ($1, $2, $3) RETURNING *',
+            [nome, email, password]
+        );
+
+        res.status(201).json({
+            message: 'Cadastro bem-sucedido!',
+            user: result.rows[0]
+        });
+    } catch (err) {
+        console.error('Erro ao cadastrar usuário:', err);
+        res.status(500).json({ message: 'Erro no servidor' });
+    }
+});
+
 // Rota de Login
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
@@ -32,9 +64,19 @@ app.post('/api/login', async (req, res) => {
         );
 
         if (result.rows.length > 0) {
+            const user = result.rows[0];
+
+            // Gera um token JWT
+            const token = jwt.sign(
+                { id: user.id, email: user.email }, // Dados do usuário
+                'suaChaveSecreta', // Chave secreta (use uma variável de ambiente em produção)
+                { expiresIn: '1h' } // Tempo de expiração do token
+            );
+
             return res.status(200).json({
                 message: 'Login bem-sucedido!',
-                user: result.rows[0]
+                token, // Envia o token para o frontend
+                user: { id: user.id, nome: user.nome, email: user.email } // Dados do usuário
             });
         } else {
             return res.status(401).json({ message: 'Credenciais inválidas' });
@@ -45,25 +87,28 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Rota para listar todas as tarefas de um usuário
-app.get('/api/tarefas/:usuario_id', async (req, res) => {
-    const { usuario_id } = req.params;
+// Middleware para verificar o token JWT
+const verificarToken = (req, res, next) => {
+    const token = req.headers['authorization'];
 
-    try {
-        const result = await pool.query(
-            'SELECT * FROM tarefas WHERE usuario_id = $1',
-            [usuario_id]
-        );
-        res.status(200).json(result.rows);
-    } catch (err) {
-        console.error('Erro ao listar tarefas:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
+    if (!token) {
+        return res.status(403).json({ message: 'Token não fornecido' });
     }
-});
 
-// Rota para criar uma tarefa
-app.post('/api/tarefas', async (req, res) => {
-    const { usuario_id, nome, descricao, data_prazo, prioridade } = req.body;
+    jwt.verify(token, 'suaChaveSecreta', (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Token inválido' });
+        }
+
+        req.userId = decoded.id; // Adiciona o ID do usuário à requisição
+        next();
+    });
+};
+
+// Rota para criar uma tarefa (protegida pelo middleware)
+app.post('/api/tarefas', verificarToken, async (req, res) => {
+    const { nome, descricao, data_prazo, prioridade } = req.body;
+    const usuario_id = req.userId; // ID do usuário extraído do token
 
     try {
         const result = await pool.query(
@@ -77,66 +122,18 @@ app.post('/api/tarefas', async (req, res) => {
     }
 });
 
-// Rota para listar todas as mini tarefas de uma tarefa
-app.get('/api/mini-tarefas/:tarefa_id', async (req, res) => {
-    const { tarefa_id } = req.params;
+// Rota para listar todas as tarefas de um usuário (protegida pelo middleware)
+app.get('/api/tarefas', verificarToken, async (req, res) => {
+    const usuario_id = req.userId; // ID do usuário extraído do token
 
     try {
         const result = await pool.query(
-            'SELECT * FROM mini_tarefas WHERE tarefa_id = $1',
-            [tarefa_id]
+            'SELECT * FROM tarefas WHERE usuario_id = $1',
+            [usuario_id]
         );
         res.status(200).json(result.rows);
     } catch (err) {
-        console.error('Erro ao listar mini tarefas:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
-});
-
-// Rota para criar uma mini tarefa
-app.post('/api/mini-tarefas', async (req, res) => {
-    const { tarefa_id, descricao } = req.body;
-
-    try {
-        const result = await pool.query(
-            'INSERT INTO mini_tarefas (tarefa_id, descricao) VALUES ($1, $2) RETURNING *',
-            [tarefa_id, descricao]
-        );
-        res.status(201).json(result.rows[0]);
-    } catch (err) {
-        console.error('Erro ao criar mini tarefa:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
-});
-
-// Rota para listar todos os anexos de uma tarefa
-app.get('/api/anexos/:tarefa_id', async (req, res) => {
-    const { tarefa_id } = req.params;
-
-    try {
-        const result = await pool.query(
-            'SELECT * FROM anexos WHERE tarefa_id = $1',
-            [tarefa_id]
-        );
-        res.status(200).json(result.rows);
-    } catch (err) {
-        console.error('Erro ao listar anexos:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
-});
-
-// Rota para criar um anexo
-app.post('/api/anexos', async (req, res) => {
-    const { tarefa_id, caminho_arquivo, url_arquivo } = req.body;
-
-    try {
-        const result = await pool.query(
-            'INSERT INTO anexos (tarefa_id, caminho_arquivo, url_arquivo) VALUES ($1, $2, $3) RETURNING *',
-            [tarefa_id, caminho_arquivo, url_arquivo]
-        );
-        res.status(201).json(result.rows[0]);
-    } catch (err) {
-        console.error('Erro ao criar anexo:', err);
+        console.error('Erro ao listar tarefas:', err);
         res.status(500).json({ message: 'Erro no servidor' });
     }
 });

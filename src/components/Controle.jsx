@@ -1,15 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Footer } from '../Fragments/Footer';
 import { Footer_C } from '../Fragments/Footer_C';
 import { Header_C } from '../Fragments/Header_C';
 import '../static/Controle.css';
 
 export const Controle = () => {
-    const [fazerTasks, setFazerTasks] = useState(['Tarefa 1', 'Tarefa 2']);
+    const [tarefas, setTarefas] = useState([]); // Estado para armazenar as tarefas
     const [feitoTasks, setFeitoTasks] = useState([]);
     const [level, setLevel] = useState(1);
     const navigate = useNavigate();
+
+    // Função para buscar as tarefas do usuário
+    const fetchTarefas = async () => {
+        try {
+            const token = localStorage.getItem('token'); // Recupera o token do localStorage
+            const response = await axios.get('http://localhost:8000/api/tarefas', {
+                headers: {
+                    'Authorization': token // Envia o token no cabeçalho
+                }
+            });
+
+            console.log('Tarefas carregadas:', response.data);
+            setTarefas(response.data); // Atualiza o estado com as tarefas obtidas
+        } catch (error) {
+            console.error('Erro ao buscar tarefas:', error.response?.data);
+            alert('Erro ao buscar tarefas. Tente novamente.');
+        }
+    };
+
+    // Busca as tarefas ao carregar o componente
+    useEffect(() => {
+        fetchTarefas();
+    }, []);
 
     const getStarColor = (lvl) => {
         if (lvl === 1) return '#d3d3d3'; // Cinza inicial
@@ -34,25 +58,25 @@ export const Controle = () => {
 
     const moveTask = (task, fromFazer) => {
         if (fromFazer) {
-            setFazerTasks(fazerTasks.filter(t => t !== task));
-            setFeitoTasks([...feitoTasks, task]);
+            setTarefas(tarefas.filter(t => t.id !== task.id)); // Remove a tarefa do quadro "Fazer"
+            setFeitoTasks([...feitoTasks, task]); // Adiciona a tarefa ao quadro "Feito"
         } else {
-            setFeitoTasks(feitoTasks.filter(t => t !== task));
-            setFazerTasks([...fazerTasks, task]);
+            setFeitoTasks(feitoTasks.filter(t => t.id !== task.id)); // Remove a tarefa do quadro "Feito"
+            setTarefas([...tarefas, task]); // Adiciona a tarefa ao quadro "Fazer"
         }
     };
 
     const deleteTask = (task, isFazer) => {
         if (isFazer) {
-            setFazerTasks(fazerTasks.filter(t => t !== task));
+            setTarefas(tarefas.filter(t => t.id !== task.id)); // Remove a tarefa do quadro "Fazer"
         } else {
-            setFeitoTasks(feitoTasks.filter(t => t !== task));
+            setFeitoTasks(feitoTasks.filter(t => t.id !== task.id)); // Remove a tarefa do quadro "Feito"
         }
     };
 
     const handleTaskClick = (task) => {
         // Redireciona para uma tela de detalhes da tarefa
-        navigate(`/tarefa/${encodeURIComponent(task)}`); // Usando o título como identificador por agora
+        navigate(`/visao/${task.id}`); // Usando o ID da tarefa como identificador
     };
 
     const TaskItem = ({ task, isFazer }) => (
@@ -69,7 +93,7 @@ export const Controle = () => {
                         onClick={() => handleTaskClick(task)}
                         className="task-title"
                     >
-                        {task}
+                        {task.nome} {/* Exibe o nome da tarefa */}
                     </span>
                 </div>
                 <span
@@ -129,8 +153,8 @@ export const Controle = () => {
                                     <div className="card">
                                         <div className="card-header botao-quadro">Fazer</div>
                                         <div className="card-body text-custom">
-                                            {fazerTasks.map((task, index) => (
-                                                <TaskItem key={index} task={task} isFazer={true} />
+                                            {tarefas.map((tarefa, index) => (
+                                                <TaskItem key={index} task={tarefa} isFazer={true} />
                                             ))}
                                         </div>
                                     </div>
@@ -139,8 +163,8 @@ export const Controle = () => {
                                     <div className="card">
                                         <div className="card-header botao-quadro">Feito</div>
                                         <div className="card-body text-custom1">
-                                            {feitoTasks.map((task, index) => (
-                                                <TaskItem key={index} task={task} isFazer={false} />
+                                            {feitoTasks.map((tarefa, index) => (
+                                                <TaskItem key={index} task={tarefa} isFazer={false} />
                                             ))}
                                         </div>
                                     </div>

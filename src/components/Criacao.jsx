@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { Header } from '../Fragments/Header';
 import { Footer_Cria } from '../Fragments/Footer_Cria';
 import "../static/Criacao.css";
-import axios from 'axios'; // Importe o axios para fazer requisições HTTP
 
 export const Criacao = () => {
     const [nome, setNome] = useState('');
@@ -19,15 +19,22 @@ export const Criacao = () => {
         const dadosTarefa = {
             nome,
             descricao,
-            data_prazo: data, // Certifique-se de que a data está no formato correto (YYYY-MM-DD)
+            data_prazo: data,
             prioridade: ordem,
-            miniTarefas: miniTarefas.filter(tarefa => tarefa.trim() !== ''), // Filtra mini tarefas vazias
-            anexos, // Aqui você pode adicionar lógica para upload de arquivos
+            miniTarefas: miniTarefas.filter(tarefa => tarefa.trim() !== ''),
+            anexos,
         };
 
         try {
+            const token = localStorage.getItem('token'); // Recupera o token do localStorage
+
             // Envia os dados para o backend
-            const response = await axios.post('http://localhost:8000/api/tarefas', dadosTarefa);
+            const response = await axios.post('http://localhost:8000/api/tarefas', dadosTarefa, {
+                headers: {
+                    'Authorization': token // Envia o token no cabeçalho
+                }
+            });
+
             console.log('Tarefa criada com sucesso:', response.data);
             alert('Tarefa criada com sucesso!');
 
@@ -102,7 +109,7 @@ export const Criacao = () => {
                         <label className="form-label fw-bold text-muted">Data</label>
                         <div className="input-group">
                             <input 
-                                type="date" // Alterado para type="date" para facilitar a entrada de datas
+                                type="date" 
                                 className="form-control form-control-lg border-primary" 
                                 placeholder="MM/DD/YYYY" 
                                 value={data} 

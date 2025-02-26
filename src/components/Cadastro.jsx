@@ -10,16 +10,24 @@ export const Cadastro = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [erro, setErro] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            alert('As senhas não coincidem!');
+
+        if (!nome.trim()) {
+            setErro('Por favor, informe o nome.');
             return;
         }
+
+        if (password !== confirmPassword) {
+            setErro('As senhas não coincidem!');
+            return;
+        }
+
         try {
-            const response = await axios.post('http://localhost:8000/api/cadastro/', {
+            const response = await axios.post('http://localhost:8000/api/cadastro', {
                 nome,
                 email,
                 password,
@@ -27,10 +35,14 @@ export const Cadastro = () => {
 
             console.log('Cadastro bem-sucedido:', response.data);
             alert('Cadastro realizado com sucesso!');
-            navigate('/login'); // Redireciona para a página de login após cadastro
+            navigate('/login');
         } catch (error) {
             console.error('Erro no cadastro:', error.response?.data);
-            alert('Erro no cadastro. Verifique os dados e tente novamente.');
+            if (error.response?.data?.message === 'Email já cadastrado') {
+                setErro('Este email já está cadastrado. Por favor, use outro email.');
+            } else {
+                setErro('Erro no cadastro. Verifique os dados e tente novamente.');
+            }
         }
     };
 
@@ -60,7 +72,11 @@ export const Cadastro = () => {
                                     id="nome"
                                     placeholder="Digite seu nome"
                                     value={nome}
-                                    onChange={(e) => setNome(e.target.value)}
+                                    onChange={(e) => {
+                                        setNome(e.target.value);
+                                        setErro('');
+                                    }}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -74,6 +90,7 @@ export const Cadastro = () => {
                                     placeholder="Digite seu email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -87,6 +104,7 @@ export const Cadastro = () => {
                                     placeholder="Digite sua senha"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -100,8 +118,10 @@ export const Cadastro = () => {
                                     placeholder="Confirme sua senha"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
                                 />
                             </div>
+                            {erro && <div className="alert alert-danger">{erro}</div>}
                             <button type="submit" className="text-white btn btn-primary w-100">
                                 Cadastrar
                             </button>

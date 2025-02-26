@@ -11,8 +11,10 @@ function App() {
         <Router>
             <Routes>
                 {/* Rota para a tela de Login */}
+                <Route path="/" element={<Login/>} />
+
                 {/* Tava Login no element */}
-                <Route path="/" element={<Cadastro/>} />
+                <Route path="/cadastro" element={<Cadastro/>} />
 
                 {/* Rota para a tela de Controle */}
                 <Route path="/controle" element={<Controle />} />
@@ -27,7 +29,7 @@ function App() {
                 <Route path="/desafio" element={<Desafio />} />
 
                 {/* Rota para a tela de Visão */}
-                <Route path="/visao" element={<Visao />} />
+                <Route path="/visao/:id" element={<Visao />} />
             </Routes>
         </Router>
     );
