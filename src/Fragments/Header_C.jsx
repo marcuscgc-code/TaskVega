@@ -8,7 +8,7 @@ export const Header_C = () => {
             </button>
             <span className="ms-2 opcao"></span>
           </div>
-          <button className="btn btn-light nome_custon">Tarefa</button>
+          {/* <button className="btn btn-light nome_custon">Add Tarefa</button> */}
         </div>
       </header>
     );

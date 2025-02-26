@@ -1,6 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
@@ -13,15 +12,34 @@ body {
     flex-direction: column;
 }
 
-.header {
+.headerteste {
+    background-image: url("/icons_imagem/headerRodrigo2.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100px;
+    margin: 0px;
+    margin-bottom: 25 px;
+    padding-top: 0px;
+    position: relative;
+    z-index: 1;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.profile-section {
     background-color: #d0e3ff;
     padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border-radius: 0 0 20px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .profile-pic {
@@ -32,12 +50,14 @@ body {
     object-fit: cover;
 }
 
-.crown {
+.profile-name {
+    color: #007bff;
+    font-weight: bold;
+    margin-left: 10px;
     font-size: 1.2rem;
-    margin-left: 5px;
 }
 
-.header-icons {
+.icons {
     display: flex;
     gap: 10px;
 }
@@ -56,75 +76,42 @@ body {
     border: none;
 }
 
-.icon-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
-}
-
-/* Ícones no header (espaço para adicionar imagens) */
-.header-icon.lightbulb {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url(''); /* Adicione o caminho da imagem do ícone de lâmpada aqui */
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.header-icon.heart {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url(''); /* Adicione o caminho da imagem do ícone de coração aqui */
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.content {
-    flex-grow: 1;
-    padding: 10px;
-}
-
-.card {
+.level-card, .stats-card, .tasks-section {
+    background: white;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: white;
-    border: none;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.level-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .level-title {
-    color: #007bff;
+    color: #000000;
+    font-size: 1.25rem;
 }
 
 .level-badge {
     background-color: #ffca2c;
+    padding: 5px 10px;
+    border-radius: 10px;
     font-size: 0.875rem;
+    color: #333;
 }
 
-.progress-bar-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.progress-custom {
+    height: 12px !important; /* Thicker for better visuals */
+    border-radius: 8px !important;
+    background-color: #e9ecef !important; /* Lighter gray background */
+    overflow: hidden;
 }
 
-.progress-bar {
-    height: 8px;
-    border-radius: 5px;
-    background-color: #e0e0e0;
-    position: relative;
-}
 
-.progress-bar.blue span {
-    background-color: #4a90e2;
-    height: 100%;
-    border-radius: 5px;
-}
-
-.progress-bar.red span {
-    background-color: #ff4b5c;
-    height: 100%;
-    border-radius: 5px;
-}
 
 .stats-card .stat-item {
     color: #007bff;
@@ -132,21 +119,14 @@ body {
     margin-bottom: 10px;
 }
 
-.progress-custom {
-    background-color: #e0e0e0 !important;
-    height: 8px !important;
-    border-radius: 5px !important;
-}
-
-.progress-custom .progress-bar {
-    background-color: #007bff !important;
-}
-
 .tasks-title {
     font-size: 1.25rem;
+    color: #ff5733;
+    margin-bottom: 10px;
 }
 
 .table {
+    width: 100%;
     margin-bottom: 0;
 }
 
@@ -160,76 +140,14 @@ body {
     color: #ff5733;
 }
 
-.text-danger {
-    color: #ff5733 !important;
-}
-
-.btn-danger, .btn-outline-danger {
-    background-color: #ff5733;
-    border-color: #ff5733;
-    color: white;
-    font-size: 0.875rem;
-}
-
-.btn-outline-danger {
-    background-color: transparent;
-    color: #ff5733;
-    border-color: #ff5733;
-}
-
-.btn-outline-danger:hover {
-    background-color: #ff5733;
-    color: white;
-    border-color: #ff5733;
-}
-
-/* Ícones nas tarefas e botões (espaço para adicionar imagens) */
-.task-icon.trash {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url(''); /* Adicione o caminho da imagem do ícone de lixeira aqui */
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.task-icon.chevron-left {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url(''); /* Adicione o caminho da imagem do ícone de seta esquerda aqui */
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.task-icon.chevron-right {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url(''); /* Adicione o caminho da imagem do ícone de seta direita aqui */
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-/* Responsividade */
 @media (max-width: 768px) {
-    .header {
+    .profile-section {
         padding: 10px;
     }
 
     .profile-pic {
         width: 40px;
         height: 40px;
-    }
-
-    .icon-button {
-        width: 35px;
-        height: 35px;
-        font-size: 1.25rem;
-    }
-
-    .card {
-        padding: 10px;
     }
 
     .level-title, .tasks-title {
@@ -243,10 +161,6 @@ body {
     .table td {
         font-size: 0.75rem;
     }
-
-    .btn-danger, .btn-outline-danger {
-        font-size: 0.75rem;
-    }
 }
 
 @media (min-width: 769px) {
@@ -254,4 +168,69 @@ body {
         max-width: 500px;
         margin: 0 auto;
     }
+}
+
+/* Alteracao nos icones */
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic.mr-2 {
+    margin-right: 0.5rem; /* Bootstrap margin for spacing */
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.level-badge span {
+    margin-left: 5px; /* Space between the level number and star */
+}
+.profile-name{
+    font-weight: bolder;
+    color: #f55656;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .progress-custom {
+    height: 12px !important;
+    border-radius: 8px !important;
+    background-color: #e9ecef !important;
+    overflow: hidden;
+  }
+  
+  .progress-custom .progress-bar {
+    border-radius: 8px !important;
+    transition: width 0.3s ease-in-out;
+    background-color: #4a90e2 !important; /* Force blue color */
+  }
+  .profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic.mr-2 {
+    margin-right: 0.5rem; /* Bootstrap margin for spacing */
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.level-badge span {
+    margin-left: 5px; /* Space between the level number and star */
 }

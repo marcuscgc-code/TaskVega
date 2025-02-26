@@ -37,21 +37,21 @@ export const Login = () => {
     return (
         <>
             <div
-                className="container d-flex justify-content-center align-items-center p-2"
+                className="login-page  container d-flex justify-content-center align-items-center p-2 "
                 style={{
                     height: "100vh",
                     width: "100vw",
                 }}
             >
                 <div
-                    className="p-4 shadow-sm"
+                    className="p-4 shadow-sm fundo_img"
                     style={{ width: "100%", height: "100%" }}
                 >
                     <Header />
-                    <div className="form_container">
+                    <div className=" form_container">
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
-                                <label htmlFor="email" className="form-label email">
+                                <label htmlFor="email" className=" text-white form-label email">
                                     Email
                                 </label>
                                 <input
@@ -64,7 +64,7 @@ export const Login = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="senha" className="form-label senha">
+                                <label htmlFor="senha" className="form-label senha text-white">
                                     Senha
                                 </label>
                                 <input
@@ -78,19 +78,20 @@ export const Login = () => {
                             </div>
                             <a
                                 href="#"
-                                className="d-block mb-3 text-primary text-decoration-none"
+                                className="d-block mb-3 text-white text-decoration-none"
                             >
                                 Esqueceu a senha?
                             </a>
-                            <button type="submit" className="btn btn-primary w-100">
+                            <button type="submit" className=" text-white btn btn-primary w-100">
                                 Login
                             </button>
                         </form>
                         <hr />
-                        <div className="text-center my-3">Ou</div>
+                        <div className=" text-white text-center my-3">Ou</div>
                         <button className="btn btn-custom btn-dark w-100 mb-2">Google</button>
                         <button className="btn btn-custom btn-dark w-100">Facebook</button>
                     </div>
+                    {/* deixar o footer mais embaixo */}
                     <div className="testeAltura">
                         <Footer />
                     </div>

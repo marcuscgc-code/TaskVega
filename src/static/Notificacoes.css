@@ -5,7 +5,7 @@ body {
   padding: 0;
 }
 
-.container-fluid {
+.container {
   padding: 0;
   background: linear-gradient(to bottom, #5664f5, #8c94ff, #d1d5ff);
   min-height: 100vh;
@@ -13,112 +13,229 @@ body {
   flex-direction: column;
 }
 
+.notification-header {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-header h1 {
+  font-size: 1.5rem;
+  color: #5664f5;
+  margin: 0;
+}
+
+.notification-header .bell-icon {
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tab {
+  background-color: #e9ecef;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab.active {
+  background-color: #5664f5;
+  color: white;
+}
+
+.tab .rocket-icon, .tab .trophy-icon {
+  margin-left: 5px;
+  font-size: 1rem;
+}
+
 .card {
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 2px solid #007bff;
-  margin: 20px auto;
   background-color: white;
+  margin-bottom: 15px;
+}
+
+.rewards-card {
+  background-color: #e3e8ff;
+  border-color: #5664f5;
+}
+
+.rewards-card .card-body {
   padding: 20px;
 }
 
-.card h2 {
-  color: #007bff;
+.rewards-card .card-title {
+  color: #333;
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+}
+
+.rewards-card .star-icon {
+  background-color: #ffd700;
+  border-radius: 50%;
+  padding: 5px;
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+.rewards-card .level-title {
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
 }
 
-.form-label {
-  font-weight: bold;
-  color: #6c757d;
+.progress {
+  height: 20px;
+  border-radius: 10px;
+  background-color: #f1f3f5;
 }
 
-.form-control, .form-control-lg {
-  border-radius: 8px;
-  border: 2px solid #007bff;
+.progress-bar {
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.points-text {
+  color: #666;
   font-size: 1rem;
-  padding: 0.75rem;
-  background-color: #f1f3f5; /* Leve cinza para indicar "somente leitura" */
+  margin-top: 10px;
 }
 
-.form-control:disabled {
-  background-color: #e9ecef;
-  opacity: 1;
+.task-card {
+  background-color: #f1f3f5;
+  border-color: #007bff;
 }
 
-.btn-close {
-  background-color: #dc3545; /* Vermelho */
-  border: none;
-  font-size: 1rem;
-  padding: 0.875rem 1.5rem;
-  border-radius: 8px;
-  color: white;
-}
-
-.btn-close:hover {
-  background-color: #c82333; /* Vermelho mais escuro no hover */
-}
-
-.footer-container {
-  background-color: #007bff;
-  position: relative;
-  width: 100%;
-  padding: 10px 0;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: auto;
-}
-
-.footer-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.footer-item {
-  color: white;
-  text-decoration: none;
+.task-card .card-body {
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 12px;
+  justify-content: center;
+  text-align: center;
 }
 
-.footer-icon {
-  font-size: 20px;
-  margin-bottom: 5px;
+.task-card .card-title {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.task-card .task-count {
+  color: #dc3545;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.task-card .rocket-icon, .task-card .calendar-icon {
+  color: #28a745;
+  font-size: 1.5rem;
+}
+
+.pending-tasks-card {
+  background-color: #f1f3f5;
+  border-color: #007bff;
+}
+
+.pending-tasks-card .card-body {
+  padding: 15px;
+}
+
+.pending-task {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.pending-task .task-check {
+  color: #28a745;
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-social {
+  background-color: #e9ecef;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.google-btn {
+  background-color: #db4437;
+  color: white;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: white;
+}
+
+.google-btn:hover, .facebook-btn:hover {
+  opacity: 0.9;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
+  .notification-header {
+    padding: 10px;
+  }
+
+  .notification-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .tab {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
   .card {
-      margin: 10px;
-      padding: 15px;
+    margin: 10px;
+    padding: 15px;
   }
 
-  .form-control, .form-control-lg, .btn {
-      font-size: 0.875rem;
-      padding: 0.5rem;
+  .rewards-card .card-title, .task-card .card-title {
+    font-size: 1rem;
   }
 
-  .form-label {
-      font-size: 0.875rem;
+  .rewards-card .level-title {
+    font-size: 1.2rem;
   }
 
-  .card h2 {
-      font-size: 1.25rem;
+  .points-text, .task-count {
+    font-size: 0.9rem;
   }
 
-  .footer-item {
-      font-size: 10px;
-  }
-
-  .footer-icon {
-      font-size: 16px;
-  }
-}
-
-@media (min-width: 769px) {
-  .card {
-      max-width: 600px;
+  .btn-social {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 }

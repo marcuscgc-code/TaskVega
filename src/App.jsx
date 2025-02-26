@@ -5,13 +5,14 @@ import { Notificacoes } from './components/Notificacao';
 import { Criacao } from './components/Criacao';
 import { Desafio } from './components/Desafios';
 import { Visao } from './components/Visao';
-
+import { Cadastro } from './components/Cadastro';
 function App() {
     return (
         <Router>
             <Routes>
                 {/* Rota para a tela de Login */}
-                <Route path="/" element={<Login />} />
+                {/* Tava Login no element */}
+                <Route path="/" element={<Cadastro/>} />
 
                 {/* Rota para a tela de Controle */}
                 <Route path="/controle" element={<Controle />} />
