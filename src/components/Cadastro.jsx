@@ -35,7 +35,7 @@ export const Cadastro = () => {
 
             console.log('Cadastro bem-sucedido:', response.data);
             alert('Cadastro realizado com sucesso!');
-            navigate('/login');
+            navigate('/');
         } catch (error) {
             console.error('Erro no cadastro:', error.response?.data);
             if (error.response?.data?.message === 'Email já cadastrado') {

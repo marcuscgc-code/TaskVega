@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Importe o Link
 import axios from 'axios';
 import { Footer } from "../Fragments/Footer";
 import { Header } from "../Fragments/Header";
@@ -85,6 +85,12 @@ export const Login = () => {
                                 Login
                             </button>
                         </form>
+                        {/* Link para a tela de cadastro */}
+                        <div className="text-center mt-3">
+                            <Link to="/cadastro" className="text-white">
+                                Cadastre-se
+                            </Link>
+                        </div>
                         <hr />
                         <div className="text-white text-center my-3">Ou</div>
                         <button className="btn btn-custom btn-dark w-100 mb-2">Google</button>
