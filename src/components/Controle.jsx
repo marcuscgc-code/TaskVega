@@ -10,23 +10,33 @@ export const Controle = () => {
     const [tarefas, setTarefas] = useState([]); // Estado para armazenar as tarefas
     const [feitoTasks, setFeitoTasks] = useState([]);
     const [level, setLevel] = useState(1);
+    const [erro, setErro] = useState(''); // Estado para mensagens de erro
     const navigate = useNavigate();
 
     // Função para buscar as tarefas do usuário
     const fetchTarefas = async () => {
         try {
             const token = localStorage.getItem('token'); // Recupera o token do localStorage
+            console.log('Token:', token); // Depuração: Verifica o token
+
+            if (!token) {
+                setErro('Token de autenticação não encontrado. Faça login novamente.');
+                navigate('/login'); // Redireciona para a tela de login
+                return;
+            }
+
             const response = await axios.get('http://localhost:8000/api/tarefas', {
                 headers: {
                     'Authorization': token // Envia o token no cabeçalho
                 }
             });
 
-            console.log('Tarefas carregadas:', response.data);
+            console.log('Tarefas carregadas:', response.data); // Depuração: Verifica as tarefas retornadas
             setTarefas(response.data); // Atualiza o estado com as tarefas obtidas
+            setErro(''); // Limpa mensagens de erro
         } catch (error) {
-            console.error('Erro ao buscar tarefas:', error.response?.data);
-            alert('Erro ao buscar tarefas. Tente novamente.');
+            console.error('Erro ao buscar tarefas:', error.response || error.message); // Depuração: Exibe o erro completo
+            setErro('Erro ao buscar tarefas. Tente novamente.');
         }
     };
 
@@ -34,6 +44,32 @@ export const Controle = () => {
     useEffect(() => {
         fetchTarefas();
     }, []);
+
+    // Função para calcular os dias da semana atual
+    const getCurrentWeekDates = () => {
+        const today = new Date(); // Data atual
+        const startOfWeek = new Date(today);
+        startOfWeek.setDate(today.getDate() - today.getDay() + 1); // Segunda-feira da semana atual
+
+        const weekDates = [];
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i);
+            // Normaliza a data para UTC antes de converter para string
+            const normalizedDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            weekDates.push(normalizedDate.toISOString().split('T')[0]); // Formato YYYY-MM-DD
+        }
+
+        return weekDates;
+    };
+
+    // Função para obter o mês e o ano atuais
+    const getCurrentMonthYear = () => {
+        const today = new Date();
+        const month = today.toLocaleString('default', { month: 'long' }); // Nome do mês
+        const year = today.getFullYear(); // Ano atual
+        return `${month} ${year}`;
+    };
 
     const getStarColor = (lvl) => {
         if (lvl === 1) return '#d3d3d3'; // Cinza inicial
@@ -120,6 +156,7 @@ export const Controle = () => {
             <div className="container d-flex flex-column justify-content-center align-items-center p-2" style={{ height: '100vh', width: '100vw' }}>
                 <div className="p-2 shadow-sm" style={{ width: '100%', height: '100%' }}>
                     <main className="container mt-4">
+                        {erro && <div className="alert alert-danger">{erro}</div>} {/* Exibe mensagens de erro */}
                         <section className="mb-4">
                             <h2>Lista de Tarefas</h2>
                             <div className="list-group">
@@ -178,14 +215,38 @@ export const Controle = () => {
                             <h2>Calendário</h2>
                             <div className="card">
                                 <div className="card-header d-flex justify-content-between align-items-center">
-                                    Janeiro 2025 <i className="bi bi-calendar"></i>
+                                    {getCurrentMonthYear()} <i className="bi bi-calendar"></i>
                                 </div>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between">
-                                        <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sab</span><span>Dom</span>
-                                    </div>
-                                    <div className="d-flex justify-content-between">
-                                        <span className="text-primary">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                                        {getCurrentWeekDates().map((date, index) => {
+                                            const tarefasDoDia = tarefas.filter(tarefa => {
+                                                const tarefaDate = new Date(tarefa.data_prazo);
+                                                const normalizedTarefaDate = new Date(Date.UTC(tarefaDate.getFullYear(), tarefaDate.getMonth(), tarefaDate.getDate()));
+                                                return normalizedTarefaDate.toISOString().split('T')[0] === date;
+                                            });
+
+                                            return (
+                                                <div key={index} className="flex-grow-1 text-center border-end" style={{ minWidth: '14.28%' }}>
+                                                    {/* Dia da semana */}
+                                                    <div className="fw-bold">
+                                                        {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'][new Date(date).getUTCDay()]}
+                                                    </div>
+                                                    {/* Data */}
+                                                    <div className={tarefasDoDia.length > 0 ? 'text-primary fw-bold' : ''}>
+                                                        {new Date(date).getUTCDate()}
+                                                    </div>
+                                                    {/* Tarefas */}
+                                                    <div className="mt-2">
+                                                        {tarefasDoDia.map((tarefa, idx) => (
+                                                            <div key={idx} className="small">
+                                                                {tarefa.nome}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>

@@ -40,6 +40,12 @@ export const Visao = () => {
         navigate(-1); // Volta para a página anterior
     };
 
+    // Função para formatar a data no formato "dd/mm/aaaa"
+    const formatarData = (dataString) => {
+        const data = new Date(dataString);
+        return data.toLocaleDateString('pt-BR'); // Formata a data para o padrão brasileiro
+    };
+
     if (loading) {
         return <div>Carregando...</div>; // Exibe uma mensagem de carregamento enquanto os dados são buscados
     }
@@ -82,7 +88,7 @@ export const Visao = () => {
                     <input 
                         type="text" 
                         className="form-control form-control-lg border-primary" 
-                        value={tarefa.data_prazo} 
+                        value={formatarData(tarefa.data_prazo)} 
                         disabled
                         style={{ borderRadius: '8px' }}
                     />
