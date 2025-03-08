@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Footer } from '../Fragments/Footer';
 import { Footer_C } from '../Fragments/Footer_C';
 import { Header_C } from '../Fragments/Header_C';
 import '../static/Controle.css';
@@ -9,10 +8,32 @@ import '../static/Controle.css';
 export const Controle = () => {
     const [tarefas, setTarefas] = useState([]); // Tarefas não concluídas
     const [feitoTasks, setFeitoTasks] = useState([]); // Tarefas concluídas
-    const [level, setLevel] = useState(1); // Nível atual
-    const [pontos, setPontos] = useState(0); // Pontos acumulados
+    const [level, setLevel] = useState(() => {
+        // Recupera o nível do localStorage ou define como 1
+        const savedLevel = localStorage.getItem('level');
+        return savedLevel ? parseInt(savedLevel, 10) : 1;
+    });
+    const [pontos, setPontos] = useState(() => {
+        // Recupera os pontos do localStorage ou define como 0
+        const savedPontos = localStorage.getItem('pontos');
+        return savedPontos ? parseInt(savedPontos, 10) : 0;
+    });
     const [erro, setErro] = useState(''); // Mensagens de erro
     const navigate = useNavigate();
+
+    // Array de ranks
+    const ranks = [
+        "Recruta", "Soldado", "Cabo", "Sargento", "Sargento-Mor",
+        "Subtenente", "Tenente", "Capitão", "Major", "Tenente-Coronel",
+        "Coronel", "General de Brigada", "General de Divisão", "General de Exército", "Marechal",
+        "Aspirante a Oficial", "Segundo-Tenente", "Primeiro-Tenente", "Capitão-Tenente", "Major-Brigadeiro",
+        "Tenente-Brigadeiro", "General-Brigadeiro", "Comodoro", "Contra-Almirante", "Vice-Almirante",
+        "Almirante", "Almirante de Esquadra", "Marechal do Ar", "Marechal-General", "Comandante Supremo",
+        "Líder Máximo"
+    ];
+
+    // Rank atual
+    const currentRank = ranks[Math.min(level - 1, 30)];
 
     // Busca as tarefas do usuário ao carregar o componente
     useEffect(() => {
@@ -39,11 +60,41 @@ export const Controle = () => {
 
             setTarefas(tarefasNaoConcluidas);
             setFeitoTasks(tarefasConcluidas);
+
+            // Recalcula o nível e os pontos com base nas tarefas concluídas
+            calcularNivelEPontos(tarefasConcluidas);
+
             setErro('');
         } catch (error) {
             console.error('Erro ao buscar tarefas:', error);
             setErro('Erro ao buscar tarefas. Tente novamente.');
         }
+    };
+
+    // Função para calcular o nível e os pontos com base nas tarefas concluídas
+    const calcularNivelEPontos = (tarefasConcluidas) => {
+        let totalPontos = 0;
+        tarefasConcluidas.forEach(tarefa => {
+            totalPontos += tarefa.pontuacao || 0; // Supondo que cada tarefa tenha um campo "pontuacao"
+        });
+
+        let novoLevel = 1;
+        let pontosNecessarios = 100; // Pontos necessários para o próximo nível
+        let pontosAcumulados = 0; // Pontos acumulados para o próximo nível
+
+        while (totalPontos >= pontosNecessarios) {
+            totalPontos -= pontosNecessarios;
+            pontosAcumulados += pontosNecessarios;
+            novoLevel++;
+            pontosNecessarios += 100; // Aumenta a quantidade de pontos necessários para o próximo nível
+        }
+
+        setLevel(novoLevel);
+        setPontos(totalPontos);
+
+        // Salva no localStorage
+        localStorage.setItem('level', novoLevel);
+        localStorage.setItem('pontos', totalPontos);
     };
 
     // Função para mover tarefa para "Feito" e marcar como concluída
@@ -77,6 +128,10 @@ export const Controle = () => {
             // Atualiza as listas de tarefas
             setTarefas(tarefas.filter(t => t.id !== task.id));
             setFeitoTasks([...feitoTasks, { ...task, concluida: true }]);
+
+            // Salva no localStorage
+            localStorage.setItem('level', level);
+            localStorage.setItem('pontos', novosPontos);
         } catch (error) {
             console.error('Erro ao marcar tarefa como concluída:', error);
             setErro('Erro ao marcar tarefa como concluída. Tente novamente.');
@@ -178,19 +233,6 @@ export const Controle = () => {
         if (lvl <= 30) return '#8b4513'; // Marrom
         return '#000000'; // Preto
     };
-
-    // Array de ranks
-    const ranks = [
-        "Recruta", "Soldado", "Cabo", "Sargento", "Sargento-Mor",
-        "Subtenente", "Tenente", "Capitão", "Major", "Tenente-Coronel",
-        "Coronel", "General de Brigada", "General de Divisão", "General de Exército", "Marechal",
-        "Aspirante a Oficial", "Segundo-Tenente", "Primeiro-Tenente", "Capitão-Tenente", "Major-Brigadeiro",
-        "Tenente-Brigadeiro", "General-Brigadeiro", "Comodoro", "Contra-Almirante", "Vice-Almirante",
-        "Almirante", "Almirante de Esquadra", "Marechal do Ar", "Marechal-General", "Comandante Supremo",
-        "Líder Máximo"
-    ];
-
-    const currentRank = ranks[Math.min(level - 1, 30)]; // Rank atual
 
     return (
         <>

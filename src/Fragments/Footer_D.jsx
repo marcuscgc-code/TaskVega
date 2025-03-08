@@ -6,10 +6,17 @@ export const Footer_D = () => {
   return (
     <footer className="footer-container">
       <nav className="footer-nav">
-        <a href="#" className="footer-item">
-          <FaHome className="footer-icon" />
-          <span>Home</span>
-        </a>
+      <a
+                    href="#" 
+                    className="footer-item"
+                    onClick={(e) => {
+                        e.preventDefault(); // Evita o comportamento padrão do link
+                        navigate("/controle"); // Navega para a tela "Controle"
+                    }}
+                >
+                    <FaHome className="footer-icon" />
+                    <span>Home</span>
+                </a>
         <a href="#" className="footer-item">
           <FaSearch className="footer-icon" />
           <span>Pesquisar</span>
