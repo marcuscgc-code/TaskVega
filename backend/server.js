@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
-const jwt = require('jsonwebtoken'); // Adicionado para JWT
+const jwt = require('jsonwebtoken'); // Para autenticação JWT
 
 dotenv.config();
 
@@ -110,11 +110,14 @@ app.post('/api/tarefas', verificarToken, async (req, res) => {
     const { nome, descricao, data_prazo, prioridade, miniTarefas, anexos } = req.body;
     const usuario_id = req.userId; // ID do usuário extraído do token
 
+    // Calcula a pontuação com base na prioridade
+    const pontuacao = prioridade === 'Alta' ? 30 : prioridade === 'Média' ? 20 : 10;
+
     try {
         // Insere a tarefa principal
         const resultTarefa = await pool.query(
-            'INSERT INTO tarefas (usuario_id, nome, descricao, data_prazo, prioridade) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [usuario_id, nome, descricao, data_prazo, prioridade]
+            'INSERT INTO tarefas (usuario_id, nome, descricao, data_prazo, prioridade, pontuacao) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [usuario_id, nome, descricao, data_prazo, prioridade, pontuacao]
         );
 
         const tarefa = resultTarefa.rows[0];
@@ -154,6 +157,43 @@ app.get('/api/tarefas', verificarToken, async (req, res) => {
         res.status(200).json(result.rows);
     } catch (err) {
         console.error('Erro ao listar tarefas:', err);
+        res.status(500).json({ message: 'Erro no servidor' });
+    }
+});
+
+// Rota para marcar uma tarefa como concluída
+app.put('/api/tarefas/:id/concluir', verificarToken, async (req, res) => {
+    const { id } = req.params;
+    const usuario_id = req.userId; // ID do usuário extraído do token
+
+    try {
+        // Busca a tarefa no banco de dados
+        const resultTarefa = await pool.query(
+            'SELECT * FROM tarefas WHERE id = $1 AND usuario_id = $2',
+            [id, usuario_id]
+        );
+
+        if (resultTarefa.rows.length === 0) {
+            return res.status(404).json({ message: 'Tarefa não encontrada' });
+        }
+
+        const tarefa = resultTarefa.rows[0];
+
+        // Verifica se a tarefa já está concluída
+        if (tarefa.concluida) {
+            return res.status(400).json({ message: 'Tarefa já concluída' });
+        }
+
+        // Marca a tarefa como concluída
+        await pool.query(
+            'UPDATE tarefas SET concluida = true WHERE id = $1',
+            [id]
+        );
+
+        // Retorna a pontuação da tarefa
+        res.status(200).json({ pontuacao: tarefa.pontuacao });
+    } catch (err) {
+        console.error('Erro ao marcar tarefa como concluída:', err);
         res.status(500).json({ message: 'Erro no servidor' });
     }
 });

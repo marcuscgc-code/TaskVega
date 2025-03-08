@@ -148,7 +148,7 @@ export const Visao = () => {
                     Fechar
                 </button>
             </div>
-            <Footer_Cria />
+           <Footer_Cria />
         </div>
     );
 };
