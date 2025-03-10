@@ -138,18 +138,22 @@ export const Desafio = () => {
             <Header />
 
             <div className="headerteste"></div>
+            
 
             <div className="content p-3" style={{ backgroundColor: '#ffffff' }}>
                 <div className="profile-section d-flex justify-content-between align-items-center">
                     <div className="profile-info d-flex align-items-center">
-                        <img src="profile.jpg" alt="Perfil" className="profile-pic mr-2" />
-                        <span className="profile-name">👑</span>
+            {/* Foto do perfil alterado */}
+            <img src="/icons_imagem/perfil_usuario.png" alt="Perfil" className="profile-pic mr-2" />
+
+                {/* Rodrigo- O nome de usuario deveria parar aqui */}
+                        <span className="profile-name">[Nome de usuario]👑</span>
                     </div>
                 </div>
 
                 <div className="level-card p-3" style={{ borderColor: getLevelColor(level) }}>
                     <div className="level-header d-flex justify-content-between">
-                        <span className="level-title">RANK</span> {/* Alterado de LEVEL para RANK */}
+                        <span className="level-title">Rank</span> {/* Alterado de LEVEL para RANK */}
                         <span className="level-badge" style={{ backgroundColor: getLevelColor(level) }}>
                             {currentRank} <span style={{ color: '#fff' }}>⭐</span> {/* Exibe o rank atual */}
                         </span>
