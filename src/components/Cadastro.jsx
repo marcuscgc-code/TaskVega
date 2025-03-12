@@ -27,12 +27,11 @@ export const Cadastro = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/cadastro', {
+            const response = await axios.post('http://192.168.15.2:8000/api/cadastro', {
                 nome,
                 email,
                 password,
             });
-
             console.log('Cadastro bem-sucedido:', response.data);
             alert('Cadastro realizado com sucesso!');
             navigate('/');

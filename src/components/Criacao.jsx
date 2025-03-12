@@ -31,7 +31,7 @@ export const Criacao = () => {
             const token = localStorage.getItem('token'); // Recupera o token do localStorage
 
             // Envia os dados para o backend
-            const response = await axios.post('http://localhost:8000/api/tarefas', dadosTarefa, {
+            const response = await axios.post('http://192.168.15.6:8000/api/tarefas', dadosTarefa, {
                 headers: {
                     'Authorization': token // Envia o token no cabeçalho
                 }

@@ -15,11 +15,10 @@ export const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8000/api/login', {
+            const response = await axios.post('http://192.168.15.6:8000/api/login', {
                 email,
                 password,
             });
-
             console.log('Login bem-sucedido:', response.data);
 
             // Armazena o token no localStorage

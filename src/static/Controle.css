@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
 }
 
 .card {
@@ -20,7 +21,7 @@ body {
 }
 
 .card-header {
-    background-color: #5664f5;
+    background-color: #ffffff;
     color: white;
     border-radius: 8px 8px 0 0;
     font-weight: bold;
@@ -403,7 +404,7 @@ min-height: 25px;
 
 /* Estilo para o quadro "Fazer" */
 .text-custom {
-    color: #5664f5;
+    color: #ffffff;
     font-weight: bolder;
     font-size: 16px;
 }

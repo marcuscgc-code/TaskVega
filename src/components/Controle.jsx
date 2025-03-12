@@ -9,12 +9,10 @@ export const Controle = () => {
     const [tarefas, setTarefas] = useState([]); // Tarefas não concluídas
     const [feitoTasks, setFeitoTasks] = useState([]); // Tarefas concluídas
     const [level, setLevel] = useState(() => {
-        // Recupera o nível do localStorage ou define como 1
         const savedLevel = localStorage.getItem('level');
         return savedLevel ? parseInt(savedLevel, 10) : 1;
     });
     const [pontos, setPontos] = useState(() => {
-        // Recupera os pontos do localStorage ou define como 0
         const savedPontos = localStorage.getItem('pontos');
         return savedPontos ? parseInt(savedPontos, 10) : 0;
     });
@@ -50,7 +48,7 @@ export const Controle = () => {
                 return;
             }
 
-            const response = await axios.get('http://localhost:8000/api/tarefas', {
+            const response = await axios.get('http://192.168.15.6:8000/api/tarefas', {
                 headers: { 'Authorization': token }
             });
 
@@ -109,7 +107,7 @@ export const Controle = () => {
 
             // Marca a tarefa como concluída no backend
             const response = await axios.put(
-                `http://localhost:8000/api/tarefas/${task.id}/concluir`,
+                `http://192.168.15.6:8000/api/tarefas/${task.id}/concluir`,
                 {},
                 { headers: { 'Authorization': token } }
             );
@@ -148,7 +146,7 @@ export const Controle = () => {
                 return;
             }
 
-            await axios.delete(`http://localhost:8000/api/tarefas/${task.id}`, {
+            await axios.delete(`http://192.168.15.6:8000/api/tarefas/${task.id}`, {
                 headers: { 'Authorization': token }
             });
 
