@@ -1,0 +1,27 @@
+.xarope {
+    background-image: url("/icons_imagem/headerRodrigo2.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 150px;
+    margin: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.header-container {
+    /* Se precisar de estilos específicos para .header-container */
+}
+
+.footer_cima {
+    position: relative;
+    z-index: 3;
+    margin-top: 80px;
+}
+
+.teste_altura {
+    /* Adicione estilos específicos para .teste_altura, se necessário */
+    /* Por exemplo, se for para ajustar a altura do footer */
+    line-height: 1.5; /* Exemplo, ajuste conforme necessário */
+}

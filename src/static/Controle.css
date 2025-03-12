@@ -10,26 +10,31 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    
+    background-color: #ffffff;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1);
+}
+
+.texto-controle {
+    color: #5664f5;
+    font-weight: bolder;
 }
 
 .card {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 2px solid #5664f5;
     background-color: #f0f8ff;
-}
-
-.card-header {
-    background-color: #ffffff;
-    color: white;
-    border-radius: 8px 8px 0 0;
-    font-weight: bold;
-    text-align: center;
-    font-size: 16px
     
 }
 
+.card-header {
+    background-color: #5664f5;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    font-weight: bolder;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+}
 
 .card-body {
     box-shadow: 2px 2px 3px black;
@@ -48,41 +53,17 @@ body {
     
 }
 
-.botao-quadro {
-    background-color: #5664f5;
-    color: white;
-    box-shadow: 2px 1px 4px black;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: left;
-    
-    
-}
-
 .badge {
-    --bs-badge-padding-x: 0.65em;
-    --bs-badge-padding-y: 0.35em;
-    --bs-badge-font-size: 0.75em;
-    --bs-badge-font-weight: 700;
-    --bs-badge-color: #0cc4fc;
-    --bs-badge-border-radius: var(--bs-border-radius);
-    display: inline-block;
-    padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
-    font-size: var(--bs-badge-font-size);
-    font-weight: var(--bs-badge-font-weight);
-    line-height: 1;
-    color: var(--bs-badge-color);
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: var(--bs-badge-border-radius);
     width: 40px;
     height: 20px;
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
 .inclusao {
-    background-color: #5664f5;
+    background-color: #007AFF;
     width: 100%;
     display: block;
     height: auto;
@@ -129,289 +110,107 @@ body {
     background-size: 200px auto;
 }
 
-/* Responsividade */
+.botao-quadro {
+    background-color: #5664f5;
+    color: rgb(255, 249, 249);
+    box-shadow: 2px 1px 1px black;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.teste {
+    background-image: url("/icons_imagem/opcao.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 30px;
+    min-width: 25px;
+    min-height: 25px;
+}
+
+.task-item {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-item span {
+    color: #5664f5;
+}
+
+.task-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    
+}
+
+.task-item.done span {
+    color: #000000;
+}
+
+.task-item.done input[type="checkbox"] {
+    border: 2px solid red;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.trash-icon {
+    background-image: url("/icons_imagem/trash.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    filter: invert(21%) sepia(92%) saturate(7494%) hue-rotate(1deg) brightness(96%) contrast(98%);
+}
+
+.task-title {
+    color: #800080;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.text-custom {
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.text-custom1 {
+    color: #ff0000;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
 @media (max-width: 768px) {
     .card {
         margin: 10px;
         padding: 10px;
     }
-
     .botao-ver, .botao-quadro {
-        font-size: 10px;
+        font-size: 16px;
         padding: 5px 10px;
     }
-
     .inclusao {
         padding: 5px 0;
     }
-
     .btn.filtro, .btn.trofeu, .btn.dados {
         width: 40px;
         height: 40px;
         background-size: 25px 25px;
     }
-}
-
-/* Novas Alterações */
-.card-header {
-    background-color: #5664f5;
-    color: white;
-    border-radius: 8px 8px 0 0;
-    font-weight: bolder; /* Torna o texto mais bold */
-    text-align: left;
-    font-size: 16px; /* Mesmo tamanho que os títulos como "Projetos Novos" */
-    padding: 10px; /* Ajusta o padding para melhor legibilidade */
-}
-
-/* Mantém o estilo da classe botao-quadro, mas garante que herde o font-weight e o tamanho */
-.botao-quadro {
-    background-color: #5664f5;
-    color: white;
-    box-shadow: 2px 1px 1px black;
-    border-radius: 5px;
-    padding: 10px;
-    font-weight: bolder; /* Garante que o texto seja bold */
-    font-size: 16px; /* Mesmo tamanho que os títulos */
-}
-    /* Adicao de botao */
-.teste{
-background-image: url("/icons_imagem/opcao.png");
-background-size: contain;
-background-repeat: no-repeat;
-/* teste de melhora do botao */
-display: inline-flex;
-align-items: center;
-padding: 15px 30px;
-min-width: 25px;
-min-height: 25px;
-}
-
-.nome_custon{
-    font-weight: bolder;
-    font-size: 16px;
-    background-color:#5664f5;
-    color: white;
-    border-color: rgb(255, 255, 255) ;
-    border-width: 2px;
-    
-}
-/* Modificação de task */
-.task-item {
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.task-item:last-child {
-    border-bottom: none;
-}
-
-.task-item span {
-    color: #800080; /* Purple text color for task titles */
-}
-
-/* Optional: If you want a purple background for tasks */
-.task-item {
-    background-color: #ffffff; /* Purple background */
-    color: white; /* White text for readability */
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-.task-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-
-/* Deixar o nome em vermelho e lixeira */
-/* Mantém o CSS original e adiciona o seguinte: */
-
-/* Estilo para tarefas no "Feito" */
-.task-item.done span {
-    color: #000000; /* Vermelho para tarefas concluídas */
-}
-
-/* Ícone de lixeira */
-.trash-icon {
-    background-image: url("/icons_imagem/trash.png"); /* Substitua pelo caminho real do ícone */
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    /* Deixar vermelho o icone */
-    filter: invert(21%) sepia(92%) saturate(7494%) hue-rotate(1deg) brightness(96%) contrast(98%);
-    
-   
-
-}
-
-/* Ajuste no task-item para alinhar o ícone à direita */
-.task-item {
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.task-item:last-child {
-    border-bottom: none;
-}
-
-.task-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-/* Mantém o CSS original e adiciona o seguinte: */
-
-/* Ajuste no estilo do badge (estrela) para melhor visibilidade */
-.badge {
-    width: 40px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black; /* Cor do texto da estrela para contraste */
-}
-
-/* Estilo para o botão de teste */
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    padding: 5px 15px;
-    font-size: 14px;
-}
-
-/* Mantém o CSS original e faz os ajustes necessários */
-
-/* Checkbox com borda vermelha no quadro "Feito" */
-.task-item.done input[type="checkbox"] {
-    border: 2px solid red;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-/* Ajuste no estilo do badge (estrela) */
-.badge {
-    width: 40px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0; /* Remove padding padrão para evitar interferência */
-}
-
-/* Remove o background roxo dos itens de tarefa e mantém apenas a cor do texto */
-.task-item {
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.task-item:last-child {
-    border-bottom: none;
-}
-
-.task-item span {
-    color: #5664f5; /* Mantém a cor roxa apenas no texto */
-}
-
-/* Estilo para o botão de teste */
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    padding: 5px 15px;
-    font-size: 14px;
-}
-
-/* Estilo para o quadro "Fazer" */
-.text-custom {
-    color: #ffffff;
-    font-weight: bolder;
-    font-size: 16px;
-}
-
-/* Estilo para o quadro "Feito" */
-.text-custom1{
-    color: #ffffff;
-    font-weight: bolder;
-    font-size: 16px;
-}
-
-/* deixar o nome titulo clicavel */
-/* Checkbox com borda vermelha no quadro "Feito" */
-.task-item.done input[type="checkbox"] {
-    border: 2px solid red;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-/* Ajuste no estilo do badge (estrela) */
-.badge {
-    width: 40px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-}
-
-/* Estilo para o ícone de lixeira */
-.trash-icon {
-    background-image: url("/icons_imagem/trash.png"); /* Certifique-se de que o caminho está correto */
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-/* Estilo para o título clicável */
-.task-title {
-    color: #800080;
-    cursor: pointer;
-    text-decoration: none; /* Opcional: adiciona sublinhado para indicar clicável */
-}
-
-/* Ajuste no layout do task-item */
-.task-item {
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6;
-    display: flex;
-    align-items: center;
-}
-
-.task-item:last-child {
-    border-bottom: none;
-}
-
-/* Estilo para o botão de teste */
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    padding: 5px 15px;
-    font-size: 14px;
-}
-
-/* Estilo para o quadro "Fazer" */
-.text-custom {
-    color: #ffffff;
-    font-weight: bolder;
-    font-size: 16px;
-}
-
-/* Estilo para o quadro "Feito" */
-.text-custom1 {
-    color: #ff0000;
-    font-weight: bolder;
-    font-size: 16px;
 }

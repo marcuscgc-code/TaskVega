@@ -1,4 +1,5 @@
-import "../static/Login.css";
+// import "../static/Login.css";
+import "../static/header_footer.css";
 export const Footer = () => {
   return (
     <footer>

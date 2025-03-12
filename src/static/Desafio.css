@@ -70,8 +70,8 @@
 }
 
 .level-title {
-    color: #ffca2c;
-
+    color: #000000;
+    font-weight: bold;
     font-size: 1.1em;
     font-family: Arial, Helvetica, sans-serif;
 }

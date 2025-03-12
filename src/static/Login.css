@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 /* Fundo escuro ajustado */
@@ -17,10 +17,9 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
-    
 }
 
+/* Overlay escuro */
 .login-page .fundo_img::before {
     content: "";
     position: absolute;
@@ -29,8 +28,8 @@
     width: 100%;
     height: 100%;
     background: rgba(112, 110, 110, 0.4);
-    z-index: 1 ;
-} 
+    z-index: 1;
+}
 
 /* Garantindo que o formulário fique acima do fundo */
 .login-page .form_container {
@@ -73,34 +72,3 @@
     background-size: contain;
     background-repeat: no-repeat;
 }
-
-/* Header */
-.login-page .xarope {
-    background-image: url("/icons_imagem/headerRodrigo2.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 150px;
-    margin: 10px;
-    position: relative;
-    z-index: 2;
-}
-
-.login-page .footer_cima {
-    position: relative;
-    z-index: 3;
-    margin-top: 80px;
-}
-
-/* .xarope{
-    background-image: url("/icons_imagem/headerRodrigo2.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 80px;
-    margin: 10px;
-    position: relative;
-    z-index: 2;
-} */

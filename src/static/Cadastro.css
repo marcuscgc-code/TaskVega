@@ -34,6 +34,7 @@
 .cadastro-page .form_container {
     position: relative;
     z-index: 1;
+    
 }
 
 /* Ajuste do título */
@@ -52,7 +53,7 @@
 
 /* Botão customizado apenas para cadastro */
 .cadastro-page .botao-personalizado {
-    background-color: #5664f5;
+    background-color: #f8f9ff;
     color: white;
     font-weight: bold;
 }
